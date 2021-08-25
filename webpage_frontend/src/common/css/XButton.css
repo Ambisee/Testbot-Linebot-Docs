@@ -1,0 +1,47 @@
+/* X Button */
+.x-button {
+    right: 0;
+    bottom: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.x-button * {
+    transition: 0.25s ease;
+}
+.x-button div[class|=line] {
+    position: absolute;
+    top: calc(100% - 2rem);
+    left: 50%;
+    width: 1.75rem;
+    height: 2px;
+    transform-origin: center;
+    background-color: black;
+}
+.x-button .line-1 {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.x-button .line-2 {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+.x-button:hover .line-1 {
+    transform: translate(-50%, -50%) rotate(45deg) scaleX(1.1);
+}
+.x-button:hover .line-2 {
+    transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.1);
+}
+.x-button .multiply-symbol {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+}
+.x-button .multiply-symbol:hover {
+    transform: scale(1.25);
+}
+
+/* X Button - Specified Container */
+.input-field .x-button {
+    width: 20%;
+    height: 100%;
+    position: absolute;
+}

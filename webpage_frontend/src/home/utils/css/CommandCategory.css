@@ -1,0 +1,16 @@
+/* Command Category */
+.command-category  h2,
+.command-category input[type=text] {
+    font-family: 'Poppins', sans-serif; 
+    margin-bottom: 1rem;
+}
+.command-category input[type=text] {
+    padding: 0 0.5ch;
+    font-size: large;
+    font-weight: bold;
+    width: 25ch;
+}
+.command-category .category-header {
+    display: flex;
+    justify-content: space-between;
+}

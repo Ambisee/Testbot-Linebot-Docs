@@ -1,0 +1,33 @@
+/* Hero Section - Buttons */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+}
+.hero-buttons a {
+    color: white;
+    font-size: 0.75rem;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--hero-button-width);
+    height: var(--hero-buton-height);
+    background: black;
+}
+.hero-buttons button {
+    color: black;
+    background: white;
+    width: var(--hero-button-width);
+    height: var(--hero-buton-height);
+    border: 1px solid black;
+    font: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+}
+.hero-buttons * {
+    cursor: pointer;
+    transition: box-shadow 0.25s ease;
+}
+.hero-buttons *:hover {
+    box-shadow: 0 0 1rem 1px rgba(0, 0, 0, 0.45);
+}

@@ -1,0 +1,17 @@
+/* Login Container */
+.login-container {
+    width: 80%;
+    min-height: calc(100vh - var(--navbar-height));
+    min-width: 5rem;
+    max-width: 20rem;
+    margin: 0 auto;
+    padding: 3rem 0;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-container h1 {
+    text-align: center;
+}

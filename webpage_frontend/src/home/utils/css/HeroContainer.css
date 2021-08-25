@@ -1,0 +1,53 @@
+:root {
+    --hero-button-width: 12.5rem;
+    --hero-buton-height: 2.8125rem;
+}
+
+/* Hero Section */
+.hero {
+    min-height: calc(100vh - var(--navbar-height));
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 5%;
+}
+.hero-headline {
+    width: 50%;
+    min-width: 23.4375rem;
+}
+.hero-headline h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    margin-bottom: 1.125rem;
+    letter-spacing: 0.15rem;
+}
+.hero-headline p {
+    margin: 1rem 0;
+    max-width: 25rem;
+    line-height: 1.25rem;
+    color: #787878;
+    width: 75%;
+}
+
+/* Hero Container - Background */
+.hero svg {
+    position: absolute;
+    left: max(1280px, calc(1280px + (100% - 1280px)));
+    height: 675px;
+    transform: translate(-100%);
+    z-index: -1;
+}
+.hero-background {
+    fill-rule: evenodd;
+    fill: black;
+}
+
+@media (min-width: 32.1875rem) {
+    .hero {
+        margin-left: 2.5rem;
+    }
+}

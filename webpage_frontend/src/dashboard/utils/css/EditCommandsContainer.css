@@ -1,0 +1,89 @@
+/* Edit Commands Container */
+.commands-container .editor-header {
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.commands-container .editor-header h1 {
+  margin-right: auto;
+}
+.commands-container .editor-header > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 10rem;
+}
+.commands-container .editor-header button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.commands-container .editor-header button span {
+  font-size: 1rem;
+  display: block;
+  text-align: center;
+}
+.commands-container .editor-header button span:first-child {
+  margin-right: 0.5rem;
+  width: 15px;
+  transform-origin: center;
+  transition: transform 0.5s ease;
+  position: relative;
+}
+.commands-container .editor-header button span:first-child::before {
+  content: '';
+  height: 2px;
+  width: 15px;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateZ(90deg);
+}
+.commands-container .editor-header button span:first-child::after {
+  content: '';
+  height: 2px;
+  width: 15px;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateZ(0deg);
+}
+.commands-container .editor-header button span:last-child {
+  position: relative;
+  transform-origin: right;
+  white-space: nowrap;
+}
+.commands-container .editor-header button:hover span:first-child {
+  transform: rotateZ(180deg);
+}
+
+@media screen and (min-width: 28.75rem) {
+  .commands-container .editor-header > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .commands-container .editor-header button span:first-child {
+    margin-right: 0.5rem;
+  }
+  .commands-container .editor-header button span:last-child {
+    position: relative;
+    max-width: 0;
+    transform-origin: right;
+    white-space: nowrap;
+    transition: max-width 0.75s ease-out;
+  }
+  .commands-container .editor-header button:hover span:first-child {
+    transform: none;
+  }
+  .commands-container .editor-header button:hover span:last-child {
+    max-width: 10rem;
+  }
+}

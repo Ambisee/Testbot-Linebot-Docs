@@ -1,0 +1,89 @@
+/* Command Description */
+.command-description {
+    max-height: 0;
+    padding: 0 0.625rem;
+    position: relative;
+    overflow: hidden;
+    transition: max-height 375ms ease;
+}
+.command-description article h3 {
+    font-weight: 600;
+    margin-top: 15px;
+}
+.command-description article p {
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+.command-description pre {
+    padding: 5px 0;
+    margin: 10px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 3px;
+    background-color: black;
+    
+}
+.command-description pre::-webkit-scrollbar {
+    height: 5px;
+}
+.command-description pre::-webkit-scrollbar-track {
+    border: none;
+    border-radius: 10px;
+}
+.command-description pre::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: white;
+}
+.command-description code {
+    padding: 10px;
+    border-radius: inherit;
+    color: white;
+}
+.command-description .chat {
+    display: grid;
+    gap: 3px;
+    grid-template-columns: 60px repeat(2, 1fr);
+    grid-template-rows: 1.5rem repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    max-width: 35rem;
+    border-radius: 0.625rem;
+    padding: 0.625rem;
+    background-color: #7494c3;
+    margin-bottom: 0.9375rem;
+}
+.command-description .chat-box:nth-of-type(2) .chat {
+    margin-bottom: 1.875rem;
+}
+.chat h4 {
+    padding-left: 0.3125rem;
+    grid-column: 2 / span 2;
+    justify-self: flex-start;
+}
+.chat span {
+    justify-self: flex-start;
+}
+.chat img {
+    width: 55px;
+    height: 55px;
+    grid-row: 1 / span 2;
+    align-self: flex-start;
+    border-radius: 50%;
+}
+.chat p {
+    background-color: rgb(75, 255, 75);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    grid-row: 2 / span 2;
+    grid-column: 2 / span 2;
+    border-radius: 10px;
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+article .chat-box:last-of-type p {
+    white-space: pre-wrap;
+    background-color: white;
+}
+.command-description.toggled {
+    max-height: none;
+}

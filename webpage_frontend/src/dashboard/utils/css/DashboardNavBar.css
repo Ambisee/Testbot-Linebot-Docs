@@ -1,0 +1,99 @@
+/* Dashboard Navigation Bar */
+.dashboard-navbar {
+  position: fixed;
+  padding: 0 1rem;
+  z-index: 10;
+  justify-content: space-between;
+  box-shadow: 0 0.625rem 50px rgba(0, 0, 0, 0.14);
+}
+.dashboard-navbar h3 {
+  font-weight: 400;
+}
+.dashboard-navbar svg {
+  width: 1.5rem;
+  transform: rotate(-90deg);
+}
+
+/* Dashboard Navigation Bar - User */
+.dashboard-navbar .user-profile {
+  position: relative;
+  z-index: 3;
+}
+.dashboard-navbar .user-profile > img {
+  position: relative;
+  cursor: pointer; 
+  border-radius: 100rem;
+  width: 3rem;
+  height: 3rem;
+  z-index: 5;
+  transition: 
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.dashboard-navbar .user-profile > img:hover {
+  box-shadow: 0 0 10px 0.1rem rgba(0, 0, 0, 0.14);
+}
+
+/* Dashboard Navigation Bar - User Menu */
+.dashboard-navbar .user-profile .options {
+  position: absolute;
+  width: 10.5rem;
+  height: 14rem;
+  top: calc(100% + 1rem);
+  right: 0;
+  list-style: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 0.25rem 0.5rem 0.05rem rgba(0, 0, 0, 0.14);
+  transition: 0.25s ease;
+  transition-delay: visibility 0.25s;
+  -moz-transition-delay: visibility 0.25s;
+  visibility: hidden;
+  opacity: 0;
+}
+.dashboard-navbar .user-profile .options li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid grey;
+}
+.dashboard-navbar .user-profile .options li button,
+.dashboard-navbar .user-profile .options li a {
+  width: 100%;
+  border: none;
+  padding: 0.5rem 0.3rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
+  display: block;
+  letter-spacing: 0;
+  text-decoration: none;
+  background-color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.dashboard-navbar .user-profile .options li:first-child {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard-navbar .user-profile .options li img {
+  display: flex;
+  justify-self: center;
+  width: 3.25rem;
+  height: 3.25rem;
+}
+.dashboard-navbar .user-profile .options li:last-child {
+  border-bottom: none;
+}
+.dashboard-navbar .user-profile .options li a:hover {
+  color: white;
+  background-color: black;
+}
+.dashboard-navbar.toggled .options {
+  opacity: 1;
+  visibility: visible;
+}

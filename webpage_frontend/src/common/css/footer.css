@@ -1,0 +1,141 @@
+/* Footer */
+footer {
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    justify-content: flex-start;
+    min-height: 15rem;
+    padding: 2.5rem;
+    color: white;
+}
+
+/* Footer - Brief About Me */
+footer section {
+    display: block;
+}
+footer h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    margin-bottom: 0.5rem;
+}
+.profile {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+.profile-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.profile-description h3 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+}
+.profile-description p {
+    margin-bottom: 0.625rem;
+    font-weight: 200;
+}
+.profile-description a {
+    position: relative;
+    margin-top: auto;
+    text-decoration: none;
+    color: #8a8a8a;
+    transition: color 0.25s ease;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.profile-description a::after {
+    content: '';
+    position: absolute;
+    top: -5%;
+    right: -5%;
+    left: -5%;
+    bottom: -5%;
+    transform: scale(0);
+    background-color: white;
+    mix-blend-mode: difference;
+    transition: transform 0.25s ease;
+}
+.profile-description a:hover::after {
+    transform: scale(1);
+}
+.profile-picture {
+    min-width: 5.3125rem;
+    min-height: 5.3125rem;
+    max-width: 5.3125rem;
+    max-height: 5.3125rem;
+    background-color: white;
+}
+
+/* Footer - Navigation */
+.footer-nav {
+    list-style: none;
+}
+.footer-nav li {
+    margin: 0.5rem 0;
+}
+.footer-nav li:first-child {
+    margin-top: 0;
+}
+.footer-nav li:last-child {
+    margin-bottom: 0;
+}
+.footer-nav a {
+    text-decoration: none;
+    transition: color 0.25s ease;
+    color: #8a8a8a;
+}
+.footer-nav a:hover {
+    color: white;
+}
+
+/* Footer - Add as Friend */
+footer section:nth-child(3) a {
+    display: block;
+    margin-top: 0.5rem;
+    width: -moz-fit-content;
+    height: -moz-fit-content;
+}
+footer section:nth-child(3) a img {
+    display: block;
+    height: 2rem;
+    transition: box-shadow 0.25s ease;
+}
+footer section:nth-child(3) a:hover img {
+    box-shadow: 0 0 1.125rem 0.1rem #00b900;
+}
+
+
+/* Footer - Other links */
+.other-links {
+    list-style: none;
+}
+.other-links li {
+    margin: 0.5rem 0;
+}
+.other-links a {
+    text-decoration: none;
+    color: #8a8a8a;
+    transition: color 0.25s ease;
+}
+.other-links a:hover {
+    color: white;
+}
+
+@media screen and (min-width: 53.75rem) {
+    footer {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    footer h2 {
+        height: -moz-max-content;
+        font-size: 1rem;
+    }
+    .profile-description p {
+        width: 15ch;
+    }
+}

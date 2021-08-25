@@ -1,0 +1,8 @@
+/* Commands Container */
+.commands-container {
+    width: 95%;
+    margin: 3rem auto;
+}
+.commands-container > h1 {
+    padding: 2.5rem 0;
+}

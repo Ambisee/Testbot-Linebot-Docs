@@ -1,0 +1,41 @@
+/* Editor Body  */
+.editor-body {
+    max-height: 0;
+    padding: 0 0.625rem;
+    position: relative;
+    overflow: hidden;
+    transition: max-height 375ms ease;
+}
+.editor-body h3 {
+    margin: 0.5rem 0;
+}
+.editor-body textarea,
+.editor-body input[type=text] {
+    padding: 0.25rem;
+    width: 100%;
+    font-size: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+    border: 1.5px solid black;
+    border-radius: 0.25rem;
+}
+.editor-body textarea:focus,
+.editor-body input[type=text]:focus {
+    outline: none;
+}
+.editor-body textarea {
+    min-height: 5rem;
+    resize: none;
+}
+.editor-body button {
+    cursor: pointer;
+    padding: 0.5rem 1.25rem;
+    margin: 1rem 0;
+    border: 1px solid black;
+    background-color: transparent;
+    border-radius: 0.3rem;
+    transition: 0.25s ease;
+}
+.editor-body button:hover {
+    background-color: black;
+    color: white;
+}
