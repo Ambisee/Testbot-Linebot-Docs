@@ -11,22 +11,25 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
   const descBox = useRef(0);
   const modifyCommand = () => {
     const requestOptions = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        original_syntax: syntax,
         name: nameState,
         description: descriptionState,
         syntax: syntaxState,
-        userChat: userChatState,
-        botChat: botChatState,
+        user_chat: userChatState,
+        bot_chat: botChatState,
       }),
     }
 
     fetch('/webpage-api/modify-command', requestOptions)
     .then(response => response.json())
-    .then(data => data);
+    .then(data => {
+      alert(data.message);
+    });
 
     return;
   }
@@ -41,11 +44,11 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
       </article>
     <article>
       <h3>Function</h3>
-        <textarea value={descriptionState} onChange={(e) => setDescriptionState(e.target.value)}></textarea>
+      <textarea value={descriptionState} onChange={(e) => setDescriptionState(e.target.value)}></textarea>
     </article>
     <article>
       <h3>Command Line</h3>
-        <input type="text" value={syntaxState} onChange={(e) => setSyntaxState(e.target.value)}></input>
+      <input type="text" value={syntaxState} onChange={(e) => setSyntaxState(e.target.value)}></input>
     </article>
       <article>
         <div>
@@ -57,7 +60,7 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
           <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea>
         </div>
       </article>
-      <button onClick={modifyCommand}>Apply Change</button>
+      <button type="button" onClick={modifyCommand}>Apply Change</button>
     </div>
   )
 }

@@ -1,15 +1,13 @@
 /* X Button */
-.x-button {
-    right: 0;
-    bottom: 0;
+.icon-button {
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
-.x-button * {
+.icon-button * {
     transition: 0.25s ease;
 }
-.x-button div[class|=line] {
+.icon-button div[class|=line] {
     position: absolute;
     top: calc(100% - 2rem);
     left: 50%;
@@ -18,30 +16,33 @@
     transform-origin: center;
     background-color: black;
 }
-.x-button .line-1 {
+.icon-button .line-1 {
     transform: translate(-50%, -50%) rotate(45deg);
 }
-.x-button .line-2 {
+.icon-button .line-2 {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
-.x-button:hover .line-1 {
+.icon-button:hover .line-1 {
     transform: translate(-50%, -50%) rotate(45deg) scaleX(1.1);
 }
-.x-button:hover .line-2 {
+.icon-button:hover .line-2 {
     transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.1);
 }
-.x-button .multiply-symbol {
+.icon-button span {
     position: relative;
     display: inline-block;
     font-size: 1.5rem;
+    transform-origin: center;
 }
-.x-button .multiply-symbol:hover {
+.icon-button span:hover {
     transform: scale(1.25);
 }
 
 /* X Button - Specified Container */
-.input-field .x-button {
+.input-field .icon-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     width: 20%;
     height: 100%;
-    position: absolute;
 }

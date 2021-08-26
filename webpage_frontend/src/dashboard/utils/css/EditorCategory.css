@@ -1,15 +1,48 @@
+/* Editor Category */
+.editor-category {
+    padding: 0.2rem 0;
+}
+
 /* Editor Category - Category Header */
 .category-header {
-    margin-bottom: 1rem;
+    padding: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .category-header input[type=text] {
     font-family: 'Poppins', sans-serif; 
+    padding: 1rem 0;
     font-weight: bold;
     font-size: large;
     padding: 0 0.5ch;
-    width: 25ch;
+    min-width: 25ch;
+    width: 30%;
+    background-color: white;
+    border: 1px solid #a4a4ad;
 }
-.category-header {
+.category-header .modify-buttons {
     display: flex;
-    justify-content: space-between;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    min-width: 3rem;
+}
+
+
+/* Editor Category - Header Right */
+.header-right {
+    display: flex;
+}
+.header-right input[type=text]:focus {
+    outline: none;
+}
+.header-right button {
+    padding: 0 0.25rem;
+    background-color: black;
+}
+.header-right button span {
+    color: white;
+}
+.header-right button:hover span {
+    transform: scale(1.25);
 }

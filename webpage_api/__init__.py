@@ -2,7 +2,7 @@ import os
 from .utils.config import *
 from .utils.db import *
 from .utils.models import *
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -12,36 +12,19 @@ if os.getenv('FLASK_ENV') == 'development':
 else:
     app.config.from_object(ProductionConfig)
 
-if app.config.get("SQLALCHEMY_DATABASE_URI"):
+
+if app.config.get('SQLALCHEMY_DATABASE_URI'):
     init_db(app)
 
-@app.route('/modify-command', methods=["POST", "PATCH"])
-def modify_command():
-    """
-    POST :
-    Create a new function from the received information
-    and add it into the database.
 
-    PATCH :
-    Search for the function with the received information
-    and modify the contents.
-    """
-    if request.method == "PATCH":
-        body = request.get_json()
-        result = Function.query.filter_by(name=body['name'])
-        print(result)
-        return jsonify({}), 200
-
-    return jsonify({}), 200
-
-
-@app.route('/handle-login', methods=["GET", "POST"])
+# Login/logout handlers
+@app.route('/handle-login', methods=['GET', 'POST'])
 def handle_login():
     """
     GET :
     Returns the username of the current user and
     the user's admin access.
-    
+
     POST :
     Try to log in with the information obtained 
     from the input fields. If successful, redirect to
@@ -53,7 +36,7 @@ def handle_login():
             'admin': session.get('admin', None)
         })
 
-    if request.method == "POST":
+    if request.method == 'POST':
         if session.get('user'):
             return redirect('/dashboard')
         username = request.form['username']
@@ -72,13 +55,13 @@ def handle_login():
             session.modified = True
             print(session)
             return redirect('/dashboard')
-        
+
         return redirect('/portal')
-    
+
     return
 
 
-@app.route('/handle-logout', methods=["GET"])
+@app.route('/handle-logout', methods=['GET'])
 def handle_logout():
     """
     GET :
@@ -94,6 +77,7 @@ def handle_logout():
     return redirect('/portal')
 
 
+# Command handlers
 @app.route('/display-commands', methods=['GET'])
 def display_commands():
     """
@@ -107,15 +91,95 @@ def display_commands():
             map(
                 lambda row:
                     {
-                        "name": row.name,
-                        "description": row.description,
-                        "syntax": row.syntax,
-                        "userChat": row.user_chat,
-                        "botChat": row.bot_chat
-                    }
-                , category.functions
+                        'name': row.name,
+                        'description': row.description,
+                        'syntax': row.syntax,
+                        'userChat': row.user_chat,
+                        'botChat': row.bot_chat
+                    }, category.functions
             )
         )
 
     # Returns a dictionary with categories(str) as keys and list of dict as values
     return jsonify(package)
+
+
+@app.route('/modify-command', methods=['POST', 'PATCH'])
+def modify_command():
+    """
+    POST :
+    Create a new function from the received information
+    and add it into the database.
+
+    PATCH :
+    Search for the function with the received information
+    and modify the contents.
+    """
+    if request.method == 'PATCH':
+        body = request.get_json()
+        print(repr(body.get('description')))
+        search_result = Function.query.filter_by(
+            syntax=body.get('original_syntax')).first()
+        if search_result is not None:
+            search_result.name = body.get('name')
+            search_result.description = body.get('description')
+            search_result.syntax = body.get('syntax')
+            search_result.user_chat = body.get('user_chat')
+            search_result.bot_chat = body.get('bot_chat')
+
+            db.session.commit()
+
+            return jsonify({'message': 'Successfully modified the content of the command.'}), 200
+
+        return jsonify({'message': 'Command not found.'}), 404
+
+    if request.method == 'POST':
+        body = request.get_json()
+        new_function = Function(
+            name=body.get('name'),
+            description=body.get('description'),
+            syntax=body.get('syntax'),
+            user_chat=body.get('user_chat'),
+            bot_chat=body.get('bot_chat')
+        )
+        
+        db.session.add(new_function)
+        db.session.commit()
+
+        return jsonify({'message': 'Command created'}), 201
+
+    return jsonify({'message': 'Request method not allowed...'}), 403
+
+
+# Category handlers
+@app.route('/modify-category', methods=['POST', 'PATCH'])
+def modify_category():
+    body = request.get_json()
+    if (request.method == 'POST') and (body.get('category_name') is not None):
+        new_category = Category(category_name=body.get('category_name'))
+        db.session.add(new_category)
+        db.session.commit()
+        return jsonify({}), 201
+
+
+@app.route('/delete-category', methods=['POST'])
+def delete_category():
+    """
+    POST :
+    Delete the category given in the request's JSON body
+    with all of its commands
+    """
+    if request.method == 'POST':
+        print('hello')
+        body = request.get_json()
+        search_result = Category.query.filter_by(category_name=body.get('category_name')).first()
+        if search_result is not None:
+            for function in search_result.functions:
+                db.session.delete(x)
+            db.session.delete(search_result)
+
+            return jsonify({'message': 'Deletion of category successful'}), 200
+        
+        return jsonify({'message': 'Category not found'}), 204
+
+    return jsonify({'message': 'Request method not allowed...'}), 403

@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 10rem;
 }
 .commands-container .editor-header button {
   border: none;
@@ -29,10 +28,9 @@
   text-align: center;
 }
 .commands-container .editor-header button span:first-child {
-  margin-right: 0.5rem;
   width: 15px;
   transform-origin: center;
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease;
   position: relative;
 }
 .commands-container .editor-header button span:first-child::before {
@@ -59,10 +57,25 @@
   position: relative;
   transform-origin: right;
   white-space: nowrap;
+  max-width: 0;
+  transition: max-width 0.75s ease-out;
 }
 .commands-container .editor-header button:hover span:first-child {
   transform: rotateZ(180deg);
 }
+
+/* Commands Container - New Category */
+.commands-container .new-category {
+  max-height: 0;
+  padding-bottom: 0.5rem;
+  overflow: hidden;
+  transition: 
+    max-height 0.375s ease;
+}
+.commands-container .new-category.toggle {
+  max-height: 3.5rem;
+}
+
 
 @media screen and (min-width: 28.75rem) {
   .commands-container .editor-header > div {
@@ -70,15 +83,16 @@
     align-items: center;
     justify-content: flex-end;
   }
-  .commands-container .editor-header button span:first-child {
-    margin-right: 0.5rem;
-  }
   .commands-container .editor-header button span:last-child {
     position: relative;
     max-width: 0;
     transform-origin: right;
     white-space: nowrap;
-    transition: max-width 0.75s ease-out;
+    transition: 
+      max-width 0.75s ease-out,
+  }
+  .commands-container .editor-header button span:last-child::before {
+    content: '\00a0\00a0';
   }
   .commands-container .editor-header button:hover span:first-child {
     transform: none;

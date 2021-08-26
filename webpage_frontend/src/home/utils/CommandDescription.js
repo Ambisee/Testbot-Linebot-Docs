@@ -1,20 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import './css/CommandDescription.css';
 
-export default function CommandBody({description = "",  syntax = "", userChat = "", botChat = "", edit = false, active = false}) {
-  const [nameState, setNameState] = useState(syntax);
-  const [descriptionState, setDescriptionState] = useState(description);
-  const [syntaxState, setSyntaxState] = useState(syntax);
-  const [userChatState, setUserChatState] = useState(userChat);
-  const [botChatState, setBotChatState] = useState(botChat);
+export default function CommandDescription({description = "",  syntax = "", userChat = "", botChat = "", edit = false, active = false}) {
   const descBox = useRef(0);
+  const handleLineBreak = (str) => {
+    let strArray = str.split('\n');
+    let newStr = []
+    
+    for (let sub of strArray) {
+      newStr.push(sub);
+      newStr.push(<br/>);
+    }
+    
+    newStr.pop();
+    return newStr
+  }
+
   let displayStyle = active? {maxHeight: descBox.current.scrollHeight.toString() + "px"} : {};
 
   return (
     <div className="command-description" ref={descBox} style={displayStyle}>
       <article>
         <h3>Function</h3>
-        <p>{description}</p>
+        <p>{handleLineBreak(description)}</p>
       </article>
       <article>
         <h3>Command Line</h3>
@@ -27,7 +35,7 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
             <div className="chat">
               <img src="../../static/images/Bot Logo.png" alt="user.png" />
               <span>User</span>
-              <p>{userChat}</p>
+              <p>{handleLineBreak(userChat)}</p>
             </div>
         </div>
         <div className="chat-box">
@@ -35,7 +43,7 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
             <div className="chat">
                 <img src="../../static/images/Bot Logo.png" alt="bot.png" />
                 <span>Bot</span>
-                <p>{botChat}</p>
+                <p>{handleLineBreak(botChat)}</p>
             </div>
         </div>
       </article>

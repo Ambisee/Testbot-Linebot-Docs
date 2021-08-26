@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './css/InputField.css';
-import '../../common/css/XButton.css';
+import '../../common/css/IconButton.css';
 
 export default function InputField(props) {
     const clearInput = () => {
@@ -17,7 +17,7 @@ export default function InputField(props) {
             <label htmlFor={props.name.toLowerCase()}>
                 <span>{props.name}</span>
             </label>
-            <button className="x-button" onClick={clearInput} type="button">
+            <button className="icon-button" onClick={clearInput} type="button">
                 <div className="line-1"></div>
                 <div className="line-2"></div>
             </button>

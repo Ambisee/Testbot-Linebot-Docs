@@ -117,7 +117,7 @@ nav svg .secondary {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.25s ease;
+    transition: color 0.5s ease;
 }
 .navbar-list a:hover {
     background-color: rgba(240, 240, 240, 1);
