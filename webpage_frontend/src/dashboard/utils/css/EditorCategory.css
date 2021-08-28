@@ -25,13 +25,13 @@
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
-    min-width: 3rem;
 }
 
 
 /* Editor Category - Header Right */
 .header-right {
     display: flex;
+    margin-right: 1rem;
 }
 .header-right input[type=text]:focus {
     outline: none;
@@ -45,4 +45,17 @@
 }
 .header-right button:hover span {
     transform: scale(1.25);
+}
+
+/* Editor Category - New Command */
+.new-command {
+    max-height: 0;
+    overflow: hidden;
+    transition: 
+        max-height 0.2s cubic-bezier(0, 0, 0, 1);
+}
+.new-command.toggle {
+    max-height: 200vh;
+    transition: 
+        max-height 0.75s ease-in;
 }

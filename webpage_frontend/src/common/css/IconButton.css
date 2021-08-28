@@ -29,9 +29,10 @@
     transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.1);
 }
 .icon-button span {
+    height: 100%;
+    font-size: 1.5rem;
     position: relative;
     display: inline-block;
-    font-size: 1.5rem;
     transform-origin: center;
 }
 .icon-button span:hover {

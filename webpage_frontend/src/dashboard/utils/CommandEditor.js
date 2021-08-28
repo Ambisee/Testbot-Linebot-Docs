@@ -15,13 +15,15 @@ export default function Command(props) {
         <section className={sectionClass}>
             <EditorHeader name={props.name} onClick={() => {setToggle(current => !current)}} />
             <EditorBody
-              name={props.name}
-              description={props.description} 
-              syntax={props.syntax}
-              userChat={props.userChat}
-              botChat={props.botChat}
-              active={toggle} 
-              edit={props.edit}
+                name={props.name}
+                function_category={props.function_category}
+                description={props.description} 
+                syntax={props.syntax}
+                userChat={props.userChat}
+                botChat={props.botChat}
+                edit={props.edit}
+                rerender={props.rerender}
+                active={toggle} 
             />
         </section>
     );

@@ -3,6 +3,7 @@
   position: fixed;
   padding: 0 1rem;
   z-index: 10;
+  top: 0;
   justify-content: space-between;
   box-shadow: 0 0.625rem 50px rgba(0, 0, 0, 0.14);
 }

@@ -152,7 +152,7 @@ nav svg .secondary {
         transition: none;
     }
     .navbar-list a:hover {
-        color: rgba(70, 70, 70, 1);
+        color: rgba(100, 100, 100, 1);
         background-color: transparent;
     }
 }

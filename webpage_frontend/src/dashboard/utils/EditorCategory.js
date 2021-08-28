@@ -4,7 +4,10 @@ import './css/EditorCategory.css';
 
 export default function EditorCategory(props) {
   const [editorSections, setEditorSections] = useState([]);
-  const [categoryName, setCategoryName] = useState(props.categoryName + props.commandPostfix)
+  const [categoryNameState, setCategoryNameState] = useState(props.categoryName + props.commandPostfix);
+  const [toggleNewCommand, setToggleNewCommand] = useState(false);
+  let newCommandClass = "new-command ";
+
 
   const deleteCategory = () => {
     if (confirm('You are going to delete this category along with all of the commands under it. Are you sure about this ?')) {
@@ -20,55 +23,72 @@ export default function EditorCategory(props) {
 
       fetch('/webpage-api/delete-category', requestOptions)
         .then(response => response.json())
-        .then(data => data);
+        .then(data => {
+          alert(data.message);
+        });
     }
     return;
   }
 
   const saveCategoryName = () => {
-    if (categoryName == '') {
+    if (categoryNameState == '') {
       alert('The field cannot be blank');
       return;
     }
     
-    if (props.categoryName == '') {
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          category_name: categoryName.split(' ')[0],
-        })
-      }
+    const requestOptions = {
+      method: '',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        original_name: props.categoryName,
+        category_name: categoryNameState.split(' ')[0],
+      })
+    }
 
+    if (props.categoryName == '') {
+      requestOptions.method = 'POST';
       fetch('/webpage-api/modify-category', requestOptions)
         .then(response => response.json())
-        .then(data => data)
+        .then(data => {
+          alert(data.message);
+        })
+      return;
     }
-  
+    
+    requestOptions.method = 'PATCH';
+      fetch('/webpage-api/modify-category', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+        })
+  }
+
+  const rerender = () => {
+    fetch(`/webpage-api/find-category-commands/${categoryNameState.split(' ')[0]}`)
+      .then(response => response.json())
+      .then(data => {
+        setEditorSections(data.data);
+        setToggleNewCommand(false);
+      })
   }
 
   useEffect(() => {
-    setEditorSections(props.categoryFunctions ? props.categoryFunctions.map((obj) => (
-        <CommandEditor 
-          key={obj.name}
-          name={obj.name}
-          description={obj.description}
-          syntax={obj.syntax}
-          userChat={obj.userChat}
-          botChat={obj.botChat}
-          edit={props.edit}
-        />
-    )) :
-    [])
+    setEditorSections(props.categoryFunctions ? props.categoryFunctions : []);
+    console.log('categoryFunc ; ', props.categoryFunctions)
+    console.log('editorSec :', editorSections)
   }, [])
+
+  if (toggleNewCommand) {
+    newCommandClass += "toggle ";
+  }
 
   return (
     <div className="editor-category">
       <div className="category-header">
         <div className="header-right">
-          <input type="text" value={categoryName} onChange={(e) => setCategoryName(e.target.value)}></input>
+          <input type="text" value={categoryNameState} onChange={(e) => setCategoryNameState(e.target.value)}></input>
           <button className="icon-button" onClick={saveCategoryName}>
             <span>&#10004;</span>
           </button>
@@ -76,7 +96,7 @@ export default function EditorCategory(props) {
         {props.categoryName == '' ?
           <></> :
           <div className="modify-buttons">
-            <button className="icon-button" onClick={() => { }}>
+            <button className="icon-button" onClick={() => setToggleNewCommand(current => !current)}>
               <span className="add-symbol">+</span>
             </button>
             {props.new ?
@@ -88,7 +108,33 @@ export default function EditorCategory(props) {
           </div>
         }
       </div>
-      {editorSections}
+      <div className={newCommandClass}>
+        <CommandEditor
+          key={""}
+          name={""}
+          function_category={props.categoryFunctions ? props.categoryFunctions[0].function_category : 0}
+          syntax={""}
+          description={""}
+          userChat={""}
+          botChat={""}
+          rerender={rerender}
+        />
+      </div>
+      {editorSections.length > 0 ?
+        editorSections.map((obj) => (
+          <CommandEditor
+            key={obj.syntax}
+            name={obj.name}
+            function_category={obj.function_category}
+            syntax={obj.syntax}
+            description={obj.description}
+            userChat={obj.userChat}
+            botChat={obj.botChat}
+            rerender={rerender}
+          />
+          )) :
+          <></>
+      }
     </div>
   )
 }

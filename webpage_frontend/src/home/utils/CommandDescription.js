@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './css/CommandDescription.css';
 
-export default function CommandDescription({description = "",  syntax = "", userChat = "", botChat = "", edit = false, active = false}) {
+export default function CommandDescription({description="",  syntax="", userChat="", botChat="", active=false}) {
   const descBox = useRef(0);
   const handleLineBreak = (str) => {
     let strArray = str.split('\n');

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import './css/EditorBody.css';
 
-export default function CommandBody({description = "",  syntax = "", userChat = "", botChat = "", edit = false, active = false}) {
-  const [nameState, setNameState] = useState(syntax);
+export default function CommandBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, rerender=() => {}}) {
+  const [nameState, setNameState] = useState(name);
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
   const [userChatState, setUserChatState] = useState(userChat);
@@ -11,13 +11,14 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
   const descBox = useRef(0);
   const modifyCommand = () => {
     const requestOptions = {
-      method: "PATCH",
+      method: name ? 'PATCH' : 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         original_syntax: syntax,
         name: nameState,
+        function_category: name ? 0 : function_category,
         description: descriptionState,
         syntax: syntaxState,
         user_chat: userChatState,
@@ -29,12 +30,34 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
     .then(response => response.json())
     .then(data => {
       alert(data.message);
+      rerender();
     });
 
     return;
   }
-  let displayStyle = active? {maxHeight: descBox.current.scrollHeight.toString() + "px"} : {};
 
+  const deleteCommand = () => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name
+      })
+    }
+
+    fetch('/webpage-api/modify-command', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        rerender();
+      })
+    
+    return;
+  }
+  
+  let displayStyle = active? {maxHeight: descBox.current.scrollHeight.toString() + "px"} : {};
 
   return (
     <div className="editor-body" ref={descBox} style={displayStyle}>
@@ -61,6 +84,7 @@ export default function CommandBody({description = "",  syntax = "", userChat = 
         </div>
       </article>
       <button type="button" onClick={modifyCommand}>Apply Change</button>
+      <button type="button" onClick={deleteCommand}>Delete Command</button>
     </div>
   )
 }

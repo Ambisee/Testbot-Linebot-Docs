@@ -30,13 +30,19 @@
     display: inline-block;
     border: none;
     cursor: pointer;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     padding: 0.5rem 0.75rem;
     text-decoration: none;
     color: white;
     background-color: black;
     transition: 0.25s ease;
 }
+.editor-body button:nth-of-type(2) {
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+    margin-left: 1rem;
+}
 .editor-body button:hover {
-    background-color: rgb(20, 20, 20);
+    box-shadow: 0 0 0.75rem 1px rgba(0, 0, 0, 0.45);
 }

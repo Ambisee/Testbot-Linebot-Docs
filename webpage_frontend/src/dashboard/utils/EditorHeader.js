@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import './css/CommandHeader.css';
+import React from 'react';
 
-export default function CommandHeader({name = "", onClick = () => {return;}}) {
+export default function CommandHeader({name="", onClick=() => {}}) {
     return (
         <div className="command-header" onClick={onClick}>
             <h3>{name}</h3>

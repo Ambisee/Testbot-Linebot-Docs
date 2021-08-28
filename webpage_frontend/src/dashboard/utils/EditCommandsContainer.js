@@ -9,9 +9,11 @@ export default function EditCommandsContainer(props) {
   let newCategoryClass = "new-category ";
 
   useEffect(() => {
-    fetch('http://localhost:8000/webpage-api/display-commands')
+    fetch('http://localhost:8000/webpage-api/get-all-commands')
       .then(response => response.json())
-      .then(data => setData(data)) // Object(key:string, value:Array(Object))
+      .then(data => {
+        setData(data) // Object(key:string, value:Array(Object))
+      })
   }, [])
 
   if (toggleNewCategory) {
@@ -45,7 +47,7 @@ export default function EditCommandsContainer(props) {
 
   return (
     <div className="commands-container">
-      <div className="editor-header">
+      <div className="container-header">
         <h1>Edit Commands</h1>
         <div>
           <button onClick={() => {setToggleNewCategory(current => !current)}}>
