@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './css/EditorBody.css';
 
-export default function CommandBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, rerender=() => {}}) {
+export default function CommandBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, onChangeCommand=() => {}}) {
   const [nameState, setNameState] = useState(name);
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
@@ -30,7 +30,7 @@ export default function CommandBody({ name="", function_category=0, description=
     .then(response => response.json())
     .then(data => {
       alert(data.message);
-      rerender();
+      onChangeCommand();
     });
 
     return;
@@ -51,7 +51,7 @@ export default function CommandBody({ name="", function_category=0, description=
       .then(response => response.json())
       .then(data => {
         alert(data.message);
-        rerender();
+        onChangeCommand();
       })
     
     return;

@@ -3,46 +3,51 @@ import EditorCategory from './EditorCategory.js';
 import './css/EditCommandsContainer.css';
 
 export default function EditCommandsContainer(props) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [toggleNewCategory, setToggleNewCategory] = useState(false);
-  let commandCategories = [];
   let newCategoryClass = "new-category ";
 
-  useEffect(() => {
-    fetch('http://localhost:8000/webpage-api/get-all-commands')
+  const renderCategories = () => {
+    if (data) {
+      let commandCategories = data;
+      let misc = commandCategories.findIndex((e) => (e.id == 2));
+
+      [commandCategories[misc], commandCategories[commandCategories.length - 1]] =
+        [commandCategories[commandCategories.length - 1], commandCategories[misc]];
+
+      return commandCategories.map(obj => (
+        <EditorCategory
+          key={obj.id}
+          categoryID={obj.id}
+          categoryName={obj.name}
+          categoryPostfix=" Functions"
+          onChangeCategory={refreshCategories}
+          new={[1, 2].includes(obj.id) ? true : false}
+        />
+      ))
+    }
+    return [];
+  }
+
+  const refreshCategories = () => {
+    fetch('http://localhost:8000/webpage-api/get-all-categories')
       .then(response => response.json())
       .then(data => {
-        setData(data) // Object(key:string, value:Array(Object))
+        setData(data.categories) // Array(Object(id: Number, name: String))
+        setToggleNewCategory(false);
+      })
+  }
+
+  useEffect(() => {
+    fetch('http://localhost:8000/webpage-api/get-all-categories')
+      .then(response => response.json())
+      .then(data => {
+        setData(data.categories) // Array(Object(id: Number, name: String))
       })
   }, [])
 
   if (toggleNewCategory) {
     newCategoryClass += "toggle";
-  }
-
-  if (data) {
-    let objectList = Object.entries(data);
-    let misc = objectList.findIndex(element => element[0] == 'Miscellaneous');
-  
-    [
-      objectList[objectList.length - 1],
-      objectList[misc]
-    ] = [
-        objectList[misc],
-        objectList[objectList.length - 1]
-      ];
-  
-    for (const [key, value] of objectList) {
-      commandCategories.push(
-        <EditorCategory
-          key={key}
-          categoryName={key}
-          categoryFunctions={value}
-          commandPostfix=" Functions"
-          new={['Help', 'Miscellaneous'].includes(key) ? true : false}
-        />
-      );
-    }
   }
 
   return (
@@ -57,9 +62,9 @@ export default function EditCommandsContainer(props) {
         </div>
       </div>
       <div className={newCategoryClass}>
-        <EditorCategory categoryName="" commandPostfix="" new={true} />
+        <EditorCategory categoryID={0} categoryName="" categoryPostfix="" new={true} onChangeCategory={refreshCategories} />
       </div>
-      {commandCategories}
+      {renderCategories()}
     </div>
   )
 }

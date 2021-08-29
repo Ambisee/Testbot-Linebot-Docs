@@ -85,14 +85,13 @@ def display_all_commands():
     Returns a JSON object with each category as keys and 
     an array of dictionaries of the categories' commands as values.
     """
-    package = {}
+    payload = {}
     for category in Category.query.all():
-        package[category.category_name] = list(
+        payload[category.category_name] = list(
             map(
                 lambda row:
                     {
                         'name': row.name,
-                        'function_category': category.id,
                         'description': row.description,
                         'syntax': row.syntax,
                         'userChat': row.user_chat,
@@ -102,7 +101,7 @@ def display_all_commands():
         )
 
     # Returns a dictionary with categories(str) as keys and list of dict as values
-    return jsonify(package)
+    return jsonify(payload)
 
 
 @app.route('/modify-command', methods=['POST', 'PATCH', 'DELETE'])
@@ -169,23 +168,36 @@ def modify_command():
 
 
 # Category handlers
-@app.route('/get-all-category')
+@app.route('/get-all-categories')
 def get_all_category():
-    pass
+    """
+    GET : 
+    Returns a list of all category keywords
+    """
+    all_categories = Category.query.all()
+    payload = {
+        'categories': list(map(lambda row: {'id': row.id,'name': row.category_name}, all_categories))
+    }
+    return jsonify(payload), 200
 
 
-@app.route('/find-category-commands/', defaults={'name': ''}, methods=['GET'])
-@app.route('/find-category-commands/<name>', methods=['GET'])
-def find_category_commands(name):
-    if name == '':
+@app.route('/find-category-commands/', defaults={'category_id': 0}, methods=['GET'])
+@app.route('/find-category-commands/<category_id>', methods=['GET'])
+def find_category_commands(category_id):
+    """
+    GET : 
+    Returns a list of all commands under the
+    given category
+    """
+    if category_id == 0:
         return jsonify({'message': 'No category name provided'}), 204
 
 
     if request.method == 'GET':
-        search_result = Category.query.filter_by(category_name=name).first()
+        search_result = Category.query.filter_by(id=category_id).first()
         if search_result is not None:
-            package = {'data': []}
-            package['data'] = list(map(lambda row:
+            payload = {'commands': []}
+            payload['commands'] = list(map(lambda row:
                     {
                         'name': row.name,
                         'description': row.description,
@@ -196,20 +208,28 @@ def find_category_commands(name):
                 search_result.functions
             ))
 
-            return jsonify(package), 200
+            return jsonify(payload), 200
         return jsonify({'message': 'Category not found'}), 404
     return jsonify({'message': 'Request method not allowed...'}), 400
         
 
 @app.route('/modify-category', methods=['POST', 'PATCH'])
 def modify_category():
+    """
+    POST :
+    Create a new category and inserts it
+    into the database
+
+    PATCH :
+    Modify the category with information requested
+    """
     body = request.get_json()
-    if body.get('category_name', None) is None:
+    if body.get('original_name', None) is None:
         return jsonify({'message': 'Category not found'}), 404
 
 
     if request.method == 'POST':
-        new_category = Category(category_name=body.get('category_name'))
+        new_category = Category(category_name=body.get('new_name'))
         db.session.add(new_category)
         db.session.commit()
 
@@ -219,7 +239,7 @@ def modify_category():
     if request.method == 'PATCH':
         search_result = Category.query.filter_by(category_name=body.get('original_name')).first()
         if search_result is not None:
-            search_result.category_name = body.get('category_name')
+            search_result.category_name = body.get('new_name')
             db.session.commit()
 
             return jsonify({'message': 'Successfully modified the category name'}), 200
@@ -227,14 +247,14 @@ def modify_category():
     return jsonify({'message': 'Request method not allowed...'}), 403
 
 
-@app.route('/delete-category', methods=['POST'])
+@app.route('/delete-category', methods=['DELETE'])
 def delete_category():
     """
-    POST :
+    DELETE :
     Delete the category given in the request's JSON body
     with all of its commands
     """
-    if request.method == 'POST':
+    if request.method == 'DELETE':
         body = request.get_json()
         search_result = Category.query.filter_by(category_name=body.get('category_name')).first()
         if search_result is not None:

@@ -51,11 +51,7 @@
 .new-command {
     max-height: 0;
     overflow: hidden;
-    transition: 
-        max-height 0.2s cubic-bezier(0, 0, 0, 1);
 }
 .new-command.toggle {
-    max-height: 200vh;
-    transition: 
-        max-height 0.75s ease-in;
+    max-height: none;
 }

@@ -22,7 +22,7 @@ export default function Command(props) {
                 userChat={props.userChat}
                 botChat={props.botChat}
                 edit={props.edit}
-                rerender={props.rerender}
+                onAdd={props.onAdd}
                 active={toggle} 
             />
         </section>
