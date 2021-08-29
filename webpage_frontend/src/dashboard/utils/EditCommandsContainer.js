@@ -62,7 +62,7 @@ export default function EditCommandsContainer(props) {
         </div>
       </div>
       <div className={newCategoryClass}>
-        <EditorCategory categoryID={0} categoryName="" categoryPostfix="" new={true} onChangeCategory={refreshCategories} />
+        <EditorCategory key={0} categoryID={0} categoryName="" categoryPostfix="" new={true} onChangeCategory={refreshCategories} />
       </div>
       {renderCategories()}
     </div>

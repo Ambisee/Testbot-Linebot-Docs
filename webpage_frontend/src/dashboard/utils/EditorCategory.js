@@ -138,7 +138,7 @@ export default function EditorCategory(props) {
             description={obj.description}
             userChat={obj.userChat}
             botChat={obj.botChat}
-            onAdd={modifyCommand}
+            onChangeCommand={modifyCommand}
           />
           )) :
           <></>

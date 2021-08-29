@@ -38,8 +38,8 @@
 /* Dashboard Navigation Bar - User Menu */
 .dashboard-navbar .user-profile .options {
   position: absolute;
-  width: 10.5rem;
-  height: 14rem;
+  width: 12rem;
+  height: 16rem;
   top: calc(100% + 1rem);
   right: 0;
   list-style: none;
@@ -57,7 +57,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid rgba(225,225,225,1);
 }
 .dashboard-navbar .user-profile .options li button,
 .dashboard-navbar .user-profile .options li a {

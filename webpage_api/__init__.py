@@ -91,6 +91,7 @@ def display_all_commands():
             map(
                 lambda row:
                     {
+                        'id': row.id,
                         'name': row.name,
                         'description': row.description,
                         'syntax': row.syntax,
@@ -199,6 +200,7 @@ def find_category_commands(category_id):
             payload = {'commands': []}
             payload['commands'] = list(map(lambda row:
                     {
+                        'id': row.id,
                         'name': row.name,
                         'description': row.description,
                         'syntax': row.syntax,

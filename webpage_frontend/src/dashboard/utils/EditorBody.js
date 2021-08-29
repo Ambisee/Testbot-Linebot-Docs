@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import './css/EditorBody.css';
 
 export default function CommandBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, onChangeCommand=() => {}}) {
-  const [nameState, setNameState] = useState(name);
+  const [nameState, setNameState] = useState(name == 'New Command' ? '' : name);
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
   const [userChatState, setUserChatState] = useState(userChat);
@@ -11,14 +11,14 @@ export default function CommandBody({ name="", function_category=0, description=
   const descBox = useRef(0);
   const modifyCommand = () => {
     const requestOptions = {
-      method: name ? 'PATCH' : 'POST',
+      method: name != 'New Command' ? 'PATCH' : 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         original_syntax: syntax,
         name: nameState,
-        function_category: name ? 0 : function_category,
+        function_category: function_category,
         description: descriptionState,
         syntax: syntaxState,
         user_chat: userChatState,

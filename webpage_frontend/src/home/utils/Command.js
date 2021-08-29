@@ -13,10 +13,8 @@ export default function Command(props) {
 
 	return (
 		<section className={sectionClass}>
-			<CommandHeader name={props.name} onClick={() => { setToggle(current => !current) }} />
+			<CommandHeader name={props.name} onClick={() => {setToggle(current => !current)}} />
 			<CommandDescription
-
-				name={props.name}
 				description={props.description}
 				syntax={props.syntax}
 				userChat={props.userChat}

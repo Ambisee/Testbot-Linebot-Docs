@@ -5,13 +5,18 @@ export default function CommandDescription({description="",  syntax="", userChat
   const descBox = useRef(0);
   const handleLineBreak = (str) => {
     let strArray = str.split('\n');
-    let newStr = []
+    let newStr = [];
     
-    for (let sub of strArray) {
-      newStr.push(sub);
-      newStr.push(<br/>);
+    // for (let sub of strArray) {
+    //   newStr.push(sub);
+    //   newStr.push(<br />);
+    // }
+    
+    for (const [index, sub] of strArray.entries()) {
+      newStr.push(sub)
+      newStr.push(<br key={index} />);
     }
-    
+
     newStr.pop();
     return newStr
   }

@@ -8,14 +8,14 @@ export default function CommandCategory(props) {
 
   useEffect(() => {
     setDisplaySections(props.categoryFunctions.map((obj) => (
-        <Command 
-          key={obj.name}
-          name={obj.name}
-          description={obj.description}
-          syntax={obj.syntax}
-          userChat={obj.userChat}
-          botChat={obj.botChat}
-        />
+      <Command
+        key={obj.name}
+        name={obj.name}
+        description={obj.description}
+        syntax={obj.syntax}
+        userChat={obj.userChat}
+        botChat={obj.botChat}
+      />
       )))}, [])
 
   return (
