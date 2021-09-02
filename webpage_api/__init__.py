@@ -261,7 +261,7 @@ def delete_category():
         search_result = Category.query.filter_by(category_name=body.get('category_name')).first()
         if search_result is not None:
             for function in search_result.functions:
-                db.session.delete(x)
+                db.session.delete(function)
             db.session.delete(search_result)
             db.session.commit()
 

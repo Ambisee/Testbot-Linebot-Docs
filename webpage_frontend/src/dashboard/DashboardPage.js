@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import DashboardNavBar from './utils/DashboardNavBar.js';
 import EditCommandsContainer from './utils/EditCommandsContainer.js';
+import EditImagesContainer from './utils/EditImagesContainer.js';
 
 export default function DashboardPage(props) {
     return (
@@ -11,6 +12,7 @@ export default function DashboardPage(props) {
             </Helmet>
             <DashboardNavBar />
             <div style={{ height: 'var(--navbar-height)' }}></div>
+            <EditImagesContainer />
             <EditCommandsContainer />
         </div>
     )

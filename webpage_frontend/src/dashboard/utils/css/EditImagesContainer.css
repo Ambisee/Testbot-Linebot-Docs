@@ -1,0 +1,23 @@
+/* Edit Images Container */
+.images-container {
+    width: 95%;
+    margin: 3rem auto;
+}
+
+/* Edit Images Container - Uploader */
+.upload {
+    display: block;
+}
+.upload input[type="file"] {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.upload img {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Edit Images Container - Image Gallery */
+.image-gallery {
+    opacity: 1;
+}

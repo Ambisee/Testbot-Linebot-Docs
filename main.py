@@ -13,8 +13,8 @@ application = DispatcherMiddleware(webpage_frontend_app, {
     '/webpage-api': webpage_api_app
 })
 
-if __name__ == "__main__" and os.getenv('FLASK_ENV') == 'development':
-    run_simple("localhost",
+if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
+    run_simple('localhost',
                 8000,
                 application,
                 use_debugger=True,
