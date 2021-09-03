@@ -8,13 +8,70 @@
 .upload {
     display: block;
 }
+.upload img {
+    display: block;
+    width: 100%;
+    min-width: calc(375px - 6rem);
+    margin: 0 auto;
+}
+.upload img[src] {
+    margin-bottom: 1rem;
+    border: 1px solid black;
+}
+.upload input[type="text"] {
+    width: 20rem;
+    font-size: 1rem;
+}
 .upload input[type="file"] {
     display: block;
     margin-bottom: 0.5rem;
 }
-.upload img {
-    max-width: 100%;
-    margin: 0 auto;
+.upload input[type="submit"] {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+}
+
+/* Edit Images Container - Uploader - Previewer */
+.previewer .controller > div {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.previewer .controller > div span:first-of-type {
+    position: relative;
+    border-bottom: 1px dotted black;
+    cursor: pointer;
+}
+.previewer .controller > div span:first-of-type:hover + span {
+    visibility: visible;
+}
+.previewer .controller > div span:nth-of-type(2) {
+    position: absolute;
+    font-size: 0.8rem;
+    bottom: calc(100% + 0.5rem);
+    left: 0;
+    padding: 0.25rem;
+    background-color: white;
+    box-shadow: 0 0.25rem 0.5rem black;
+    visibility: hidden;
+}
+.previewer .controller > div span:nth-of-type(2)::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 1.9rem;
+    border-width: 0.5rem;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+.previewer .icon-button {
+    display: block;
+}
+.previewer .icon-button span {
+    font-size: 1rem;
+    margin-top: 0.5rem;
 }
 
 /* Edit Images Container - Image Gallery */

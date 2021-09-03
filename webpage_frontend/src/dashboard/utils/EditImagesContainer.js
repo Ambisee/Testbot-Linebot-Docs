@@ -1,23 +1,49 @@
-import React, { useRef, useState, useEffect } from 'react';
-import ImageDisplayer from './ImageDisplayer.js';
+import React, { useRef, useState } from 'react';
 import './css/EditImagesContainer.css';
 
 export default function EditImagesContainer(props) {
-    const [receivedFile, setReceivedFile] = useState(null);
+    const [receivedFilePath, setReceivedFilePath] = useState(null);
+    const [receivedFileName, setReceivedFileName] = useState('');
     const fileReceiver = useRef(0);
     
     const readUI = (e) => {
         if (e.target.files && e.target.files[0]) {
             let reader = new FileReader();
             reader.onload = (ev) => {
-                setReceivedFile(ev.target.result);
+                setReceivedFilePath(ev.target.result);
             }
             reader.readAsDataURL(e.target.files[0]);
         }
     }
 
-    const onChangeFileInput = (e) => {
-        readUI(e);
+    let previewImg = () => {
+        const removeFile = () => {
+            setReceivedFilePath(null);
+            fileReceiver.current.value = null;
+        }
+        
+        let defFileName = fileReceiver.current.value ? fileReceiver.current.value.split('\\') : null;
+        return (receivedFilePath != null) && (defFileName != null) ? (
+            <div className="previewer">
+                <img src={receivedFilePath} alt="No preview"></img>
+                <div className="controller">
+                    <div>
+                        <span>Filename</span>
+                        <span>
+                            The keyword that will be used to conjure up the image from the bot.
+                        </span>
+                        <input type="text" onChange={(e) => setReceivedFileName(e.target.value)} defaultValue={defFileName?.[defFileName.length - 1].split('.')[0]} />
+                    </div>
+                    <button className="icon-button" onClick={removeFile}>
+                        <span>&times; Remove</span>
+                    </button>
+                    <button type="submit" className="icon-button">
+                        <span>&#10004; Submit</span>
+                    </button>
+                </div>
+            </div>
+            ) :
+            null;
     }
 
     return (
@@ -28,11 +54,12 @@ export default function EditImagesContainer(props) {
             <form method="POST" className="upload">
                 <input
                     type="file"
+                    name="filepath"
                     accept="image/jpeg, image/png"
                     ref={fileReceiver}
-                    onChange={(e) => onChangeFileInput(e)}
+                    onChange={(e) => readUI(e)}
                 />
-                <img src={receivedFile} alt="No preview"></img>
+                {previewImg()}
             </form>
         </div>
     )
