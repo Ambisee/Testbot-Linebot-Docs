@@ -51,10 +51,10 @@
     position: absolute;
     font-size: 0.8rem;
     bottom: calc(100% + 0.5rem);
-    left: 0;
+    left: -1%;
     padding: 0.25rem;
-    background-color: white;
-    box-shadow: 0 0.25rem 0.5rem black;
+    background-color: black;
+    color: white;
     visibility: hidden;
 }
 .previewer .controller > div span:nth-of-type(2)::after {
@@ -64,7 +64,7 @@
     left: 1.9rem;
     border-width: 0.5rem;
     border-style: solid;
-    border-color: white transparent transparent transparent;
+    border-color: black transparent transparent transparent;
 }
 .previewer .icon-button {
     display: block;
@@ -76,5 +76,7 @@
 
 /* Edit Images Container - Image Gallery */
 .image-gallery {
-    opacity: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1rem;
 }
