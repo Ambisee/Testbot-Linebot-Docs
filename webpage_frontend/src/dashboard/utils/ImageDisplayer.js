@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import './css/ImageDisplayer.css';
 
-export default function ImageDisplayer({name="", src=null}) {
+export default function ImageDisplayer({ name="", src=null, onDelete=() => {}}) {
     const deleteImage = () => {
-        return;
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                deletionTarget: name
+            })
+        }
+
+        fetch('/dropbox-api/delete-image', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                onDelete(name);
+            });
     }
     
     return (
@@ -17,7 +31,7 @@ export default function ImageDisplayer({name="", src=null}) {
                         </svg>
                     </span>
                 </a>
-                <button className="icon-button">
+                <button className="icon-button" onClick={() => deleteImage(name)}>
                     <span>&times;</span>
                 </button>
                 <span className="display-name">
