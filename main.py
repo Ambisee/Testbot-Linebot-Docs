@@ -8,9 +8,11 @@ from werkzeug.serving import run_simple
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from webpage_api import app as webpage_api_app
 from webpage_frontend import app as webpage_frontend_app
+from dropbox_api import app as dropbox_api_app
 
 application = DispatcherMiddleware(webpage_frontend_app, {
-    '/webpage-api': webpage_api_app
+    '/webpage-api': webpage_api_app,
+    '/dropbox-api': dropbox_api_app
 })
 
 if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
