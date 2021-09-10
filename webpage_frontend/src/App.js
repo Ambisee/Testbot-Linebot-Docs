@@ -42,12 +42,12 @@ export default function App() {
             }}
             />
             <Route path='/dashboard' render={() => {
-              // if (!rendered) return;
-              // return sessionData.user != undefined ?
-              //   <DashboardPage links={footerData} appTitle={appTitle} /> :
-              //   <Redirect to="/portal" />
-              // }} 
-              return <DashboardPage links={footerData} appTitle={appTitle} />}}
+              if (!rendered) return;
+              return sessionData.user != undefined ?
+                <DashboardPage links={footerData} appTitle={appTitle} /> :
+                <Redirect to="/portal" />
+              }} 
+              // return <DashboardPage links={footerData} appTitle={appTitle} />}}
             />
           </Switch>
       </Router>
