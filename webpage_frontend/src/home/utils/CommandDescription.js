@@ -38,7 +38,7 @@ export default function CommandDescription({description="",  syntax="", userChat
         <div className="chat-box">
           <span>User</span>
             <div className="chat">
-              <img src="../../static/images/Bot Logo.png" alt="user.png" />
+              <img src="../../static/images/Ambisee.png" alt="user.png" />
               <span>User</span>
               <p>{handleLineBreak(userChat)}</p>
             </div>

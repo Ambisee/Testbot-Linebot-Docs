@@ -3,6 +3,7 @@ import './css/DashboardNavBar.css';
 
 export default function DashboardNavBar(props) {
   const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState('');
   const profileRef = useRef();
 
   const toggleMenu = () => {
@@ -24,6 +25,9 @@ export default function DashboardNavBar(props) {
   useEffect(() => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('click', handleOutsideClick);
+    fetch('/webpage-api/get-current-user')
+      .then(response => response.json())
+      .then(data => setUser(data.user ? data.user : ''));
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -44,7 +48,7 @@ export default function DashboardNavBar(props) {
         <ul className="options">
           <li>
             <img src="../../../static/images/Bot Logo.png"></img>
-            <span>{"UserA"}</span>
+            <span>{user !== '' ? user : ''}</span>
           </li>
           <li>
             <a href="/webpage-api/handle-logout">Logout</a>
