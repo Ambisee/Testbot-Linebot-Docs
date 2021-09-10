@@ -77,6 +77,16 @@ def handle_logout():
     return redirect('/portal')
 
 
+@app.route('/get-current-user', methods=['GET'])
+def get_current_user():
+    """
+    GET :
+    Returns the current logged in user's username
+    """
+    if (current := session.get('user')) is not None:
+        return {'user': current, 'message': 'Currently logged in user found'}, 200
+    return {'message': 'Currently logged in user not found'}, 404
+
 # Command handlers
 @app.route('/get-all-commands', methods=['GET'])
 def display_all_commands():
