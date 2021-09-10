@@ -61,3 +61,22 @@
 .image-displayer:hover img {
     transform: scale(1.1);
 }
+
+/* Delete Loading Display */
+#deleting.image-control {
+    opacity: 1;
+}
+#deleting > svg {
+    fill-rule: evenodd;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 5px 10px black);
+    animation: loading infinite 1s;
+}
+#deleting > svg .secondary-feature {
+    fill: white;
+}

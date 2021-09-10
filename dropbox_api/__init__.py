@@ -6,6 +6,7 @@ from flask import Flask, request
 app = Flask(__name__)
 dbx = dropbox.Dropbox(os.getenv('DROPBOX_TOKEN'))
 
+
 # File Getter and Setter
 @app.route('/get-all-image-link', methods=['GET'])
 def get_all_image_link():
@@ -17,19 +18,14 @@ def get_all_image_link():
         map(
             lambda obj: 
                 (
-                    obj.path.split('/')[-1][:-4].replace('_', ' '), 
-                    obj.url.replace('www.dropbox', 'dl.dropboxusercontent')
+                    *obj.path.split('/')[-1].split('.'),
+                    obj.url.replace('www.dropbox', 'dl.dropboxusercontent'),
                 )
             , linkObj
         )
     )
 
     return payload
-
-
-@app.route('/get-image-link/<filename>', methods=['GET'])
-def get_image_link(filename):
-    return 'hello', 200
 
 
 @app.route('/upload-image', methods=['POST'])
@@ -48,7 +44,24 @@ def upload_image():
         return {
             'message': 'File successfully uploaded',
             'name': str(name),
+            'file_ext': str(filetype),
             'link': str(link.url.replace('www.dropbox', 'dl.dropboxusercontent'))
         }, 200
     
+    return {'message': 'Request method not allowed...'}, 403
+
+
+@app.route('/delete-image', methods=['DELETE'])
+def delete_image():
+    if request.method == 'DELETE':
+        target = request.get_json().get('deletion_target')
+        print(f'/Images/{target}')
+        if target is not None:
+            try:
+                dbx.files_delete(f'/Images/{target}')
+                return {'message': 'File successfully deleted'}, 200
+            except dropbox.exceptions.ApiError as e:
+                print(e)
+                return {'message': 'Target file not found'}, 404
+
     return {'message': 'Request method not allowed...'}, 403
