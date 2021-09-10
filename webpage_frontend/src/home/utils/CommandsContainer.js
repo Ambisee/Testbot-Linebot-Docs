@@ -7,7 +7,7 @@ export default function CommandsContainer(props) {
     let commandCategories = [];
 
     useEffect(() => {
-        fetch('http://localhost:8000/webpage-api/get-all-commands')
+        fetch('/webpage-api/get-all-commands')
         .then(response => response.json())
         .then(data => {
             setData(data);
