@@ -13,7 +13,9 @@ class ProductionConfig(Config):
     TESTING = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    
+    # The prefix postgres:// on Heroku must be changed to postgresql:// for SQLAlchemy to work
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace('postgres://', 'postgresql://')
 
 
 class DevelopmentConfig(Config):
