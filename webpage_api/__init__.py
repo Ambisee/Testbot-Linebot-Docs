@@ -83,7 +83,8 @@ def get_current_user():
     GET :
     Returns the current logged in user's username
     """
-    if (current := session.get('user')) is not None:
+    current = session.get('user')
+    if current is not None:
         return {'user': current, 'message': 'Currently logged in user found'}, 200
     return {'message': 'Currently logged in user not found'}, 404
 
