@@ -42,7 +42,7 @@ def handle_login():
         username = request.form['username']
         password = request.form['password']
 
-        matched_user = User.query.filter_by(username=username).all()
+        matched_user = Account.query.filter_by(username=username).all()
         if len(matched_user) <= 0:
             return redirect('/portal')
 
