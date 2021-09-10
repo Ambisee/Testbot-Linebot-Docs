@@ -30,7 +30,7 @@ export default function EditCommandsContainer(props) {
   }
 
   const refreshCategories = () => {
-    fetch('http://localhost:8000/webpage-api/get-all-categories')
+    fetch('/webpage-api/get-all-categories')
       .then(response => response.json())
       .then(data => {
         setData(data.categories) // Array(Object(id: Number, name: String))
