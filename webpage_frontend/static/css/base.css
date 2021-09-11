@@ -13,3 +13,9 @@ html {
     width: 100%;
     overflow-x: hidden;
 }
+body {
+    overflow: hidden;
+}
+a {
+    text-decoration: none;
+}

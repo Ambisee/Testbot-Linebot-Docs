@@ -13,6 +13,10 @@
         <div id="root">
             
         </div>
-        <script src="{{ url_for('static', filename='frontend/main.js') }}" async></script>
+        {% if config == 'production' %}
+            <script src="{{ url_for('static', filename='frontend/main.js') }}" async></script>
+        {% elif config == 'development' %}
+            <script src="{{ url_for('static', filename='frontend_dev/dev.js') }}" async></script>
+        {% endif %}
     </body>
 </html>

@@ -12,7 +12,6 @@ class ProductionConfig(Config):
     TESTING = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 
 class DevelopmentConfig(Config):
     FLASK_ENV = 'development'
@@ -20,4 +19,3 @@ class DevelopmentConfig(Config):
     TESTING = True
     SECRET_KEY = token_hex(20)
     SESSION_COOKIE_SECURE = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')

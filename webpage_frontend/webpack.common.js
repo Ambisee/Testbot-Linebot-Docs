@@ -3,10 +3,6 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: "./src/index.js",
-    output: {
-        filename: "[name].js",
-        path: path.resolve(__dirname, "./static/frontend")
-    },
     module: {
         rules: [
             {
@@ -39,7 +35,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             "process.env": {
-                NODE_ENV: JSON.stringify("production"),
+                NODE_ENV: JSON.stringify("development"),
             },
         }),
     ],

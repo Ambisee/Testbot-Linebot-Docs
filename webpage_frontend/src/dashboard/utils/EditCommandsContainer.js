@@ -10,7 +10,7 @@ export default function EditCommandsContainer(props) {
   const renderCategories = () => {
     if (data) {
       let commandCategories = data;
-      let misc = commandCategories.findIndex((e) => (e.id == 2));
+      let misc = commandCategories.findIndex(e => (e.id == 2));
 
       [commandCategories[misc], commandCategories[commandCategories.length - 1]] =
         [commandCategories[commandCategories.length - 1], commandCategories[misc]];

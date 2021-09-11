@@ -117,7 +117,7 @@ export default function EditImagesContainer(props) {
                     images.map(tup => (
                         <ImageDisplayer
                             key={tup[0]}
-                            name={tup[0]}
+                            name={tup[0].split('_').join(' ')}
                             file_ext={tup[1]}
                             src={tup[2]}
                             onDelete={() => setDoReload(current => !current)} />
