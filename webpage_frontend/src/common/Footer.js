@@ -7,20 +7,22 @@ export default function Footer({links = []}) {
             <section>
                 <h2>About me</h2>
                 <div className="profile">
-                    <div className="profile-picture"></div>
+                    <div className="profile-picture">
+                        <img src="../../static/images/Ambisee.png" alt="Ambisee.png"></img>
+                    </div>
                     <div className="profile-description">
                         <h3>Ambisee</h3>
                         <p>I code in Python and Javascript</p>
-                        <a href="#">Github</a>
+                        <a href="https://github.com/ambisee">Github</a>
                     </div>
                 </div>
             </section>
             <section>
                 <h2>Navigation</h2>
                 <ul className="footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Portal</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/portal">Portal</a></li>
                 </ul>
             </section>
             <section>

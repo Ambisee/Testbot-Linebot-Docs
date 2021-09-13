@@ -237,12 +237,12 @@ def modify_category():
     Modify the category with information requested
     """
     body = request.get_json()
-    if body.get('original_name', None) is None:
+    if body.get('category_name') is None:
         return jsonify({'message': 'Category not found'}), 404
 
 
     if request.method == 'POST':
-        new_category = Category(category_name=body.get('new_name'))
+        new_category = Category(category_name=body.get('category_name'))
         db.session.add(new_category)
         db.session.commit()
 
@@ -250,9 +250,9 @@ def modify_category():
 
 
     if request.method == 'PATCH':
-        search_result = Category.query.filter_by(category_name=body.get('original_name')).first()
+        search_result = Category.query.filter_by(id=body.get('category_id')).first()
         if search_result is not None:
-            search_result.category_name = body.get('new_name')
+            search_result.category_name = body.get('category_name')
             db.session.commit()
 
             return jsonify({'message': 'Successfully modified the category name'}), 200
@@ -269,7 +269,7 @@ def delete_category():
     """
     if request.method == 'DELETE':
         body = request.get_json()
-        search_result = Category.query.filter_by(category_name=body.get('category_name')).first()
+        search_result = Category.query.filter_by(id=body.get('category_id')).first()
         if search_result is not None:
             for function in search_result.functions:
                 db.session.delete(function)

@@ -64,11 +64,13 @@ footer h2 {
     transform: scale(1);
 }
 .profile-picture {
-    min-width: 5.3125rem;
-    min-height: 5.3125rem;
-    max-width: 5.3125rem;
-    max-height: 5.3125rem;
+    width: 5.3125rem;
+    height: 5.3125rem;
     background-color: white;
+}
+.profile-picture img {
+    width: 100%;
+    height: 100%;
 }
 
 /* Footer - Navigation */

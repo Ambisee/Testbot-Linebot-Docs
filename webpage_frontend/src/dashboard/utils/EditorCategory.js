@@ -17,7 +17,7 @@ export default function EditorCategory(props) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          'category_name': props.categoryName,
+          'category_id': props.categoryID
         }),
       }
 
@@ -38,8 +38,8 @@ export default function EditorCategory(props) {
     }
     
     const payload = {
-      original_name: props.categoryName,
-      new_name: categoryNameState.split(' ')[0],
+      category_id: props.categoryID,
+      category_name: categoryNameState.split(' ')[0],
     }
     const requestOptions = {
       method: '',
@@ -69,7 +69,7 @@ export default function EditorCategory(props) {
         })
   }
 
-  const modifyCommand = () => {
+  const modifyCommandCallback = () => {
     fetch(`/webpage-api/find-category-commands/${props.categoryID}`)
       .then(response => response.json())
       .then(data => {
@@ -125,7 +125,7 @@ export default function EditorCategory(props) {
           description={""}
           userChat={""}
           botChat={""}
-          onChangeCommand={modifyCommand}
+          onChangeCommand={modifyCommandCallback}
         />
       </div>
       {editorSections.length > 0 ?
@@ -138,7 +138,7 @@ export default function EditorCategory(props) {
             description={obj.description}
             userChat={obj.userChat}
             botChat={obj.botChat}
-            onChangeCommand={modifyCommand}
+            onChangeCommand={modifyCommandCallback}
           />
           )) :
           <></>

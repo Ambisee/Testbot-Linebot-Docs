@@ -30,6 +30,14 @@ export default function CommandBody({ name="", function_category=0, description=
     .then(response => response.json())
     .then(data => {
       alert(data.message);
+      if (name == 'New Command') {
+        setNameState('');
+        setDescriptionState('');
+        setSyntaxState('');
+        setUserChatState('');
+        setBotChatState('');
+      }
+
       onChangeCommand();
     });
 
