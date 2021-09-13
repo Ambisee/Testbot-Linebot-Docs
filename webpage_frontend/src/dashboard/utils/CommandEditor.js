@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import EditorHeader from './EditorHeader.js';
-import EditorBody from './EditorBody';
+import EditorBody from './EditorBody.js';
 import './css/CommandEditor.css';
 
-export default function Command(props) {
+export default function CommandEditor(props) {
     const [toggle, setToggle] = useState(false);
     
     let sectionClass = "command ";
@@ -22,7 +22,10 @@ export default function Command(props) {
                 userChat={props.userChat}
                 botChat={props.botChat}
                 edit={props.edit}
-                onChangeCommand={props.onChangeCommand}
+                onChangeCommand={() => {
+                    setToggle(props.name == 'New Command' ? false : true);
+                    props.onChangeCommand();
+                }}
                 active={toggle} 
             />
         </section>

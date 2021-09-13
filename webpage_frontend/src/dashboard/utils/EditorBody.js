@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './css/EditorBody.css';
 
-export default function CommandBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, onChangeCommand=() => {}}) {
+export default function EditorBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, onChangeCommand=() => {}}) {
   const [nameState, setNameState] = useState(name == 'New Command' ? '' : name);
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);

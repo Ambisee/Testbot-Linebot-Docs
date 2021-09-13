@@ -226,7 +226,7 @@ def find_category_commands(category_id):
     return jsonify({'message': 'Request method not allowed...'}), 400
         
 
-@app.route('/modify-category', methods=['POST', 'PATCH'])
+@app.route('/modify-category', methods=['POST', 'PATCH', 'DELETE'])
 def modify_category():
     """
     POST :
@@ -235,9 +235,13 @@ def modify_category():
 
     PATCH :
     Modify the category with information requested
+
+    DELETE :
+    Delete the category given in the request's JSON body
+    with all of its commands
     """
     body = request.get_json()
-    if body.get('category_name') is None:
+    if body.get('category_id') is None:
         return jsonify({'message': 'Category not found'}), 404
 
 
@@ -257,18 +261,8 @@ def modify_category():
 
             return jsonify({'message': 'Successfully modified the category name'}), 200
         return jsonify({'message': 'Category not found'}), 404
-    return jsonify({'message': 'Request method not allowed...'}), 403
 
-
-@app.route('/delete-category', methods=['DELETE'])
-def delete_category():
-    """
-    DELETE :
-    Delete the category given in the request's JSON body
-    with all of its commands
-    """
     if request.method == 'DELETE':
-        body = request.get_json()
         search_result = Category.query.filter_by(id=body.get('category_id')).first()
         if search_result is not None:
             for function in search_result.functions:
@@ -277,7 +271,6 @@ def delete_category():
             db.session.commit()
 
             return jsonify({'message': 'Deletion of category successful'}), 200
-        
         return jsonify({'message': 'Category not found'}), 204
 
     return jsonify({'message': 'Request method not allowed...'}), 403
