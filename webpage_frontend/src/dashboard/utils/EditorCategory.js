@@ -21,7 +21,7 @@ export default function EditorCategory(props) {
         }),
       }
 
-      fetch('/webpage-api/delete-category', requestOptions)
+      fetch('/webpage-api/modify-category', requestOptions)
         .then(response => response.json())
         .then(data => {
           alert(data.message);
@@ -55,7 +55,7 @@ export default function EditorCategory(props) {
         .then(response => response.json())
         .then(data => {
           alert(data.message);
-          setCategoryNameState(payload.new_name + props.categoryPostfix);
+          setCategoryNameState('');
           props.onChangeCategory();
         })
       return;
