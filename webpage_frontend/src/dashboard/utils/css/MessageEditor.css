@@ -1,6 +1,7 @@
 /* Message Editor - Header */
 .message-editor header {
     display: flex;
+    margin-bottom: 0.5rem;
 }
 
 /* Message Editor - Buttons */
@@ -10,4 +11,9 @@
     align-items: center;
     width: 1.5rem;
     height: 1.5rem;
+}
+
+/* Message Editor - Image Receiver */
+.message-editor .image-receiver img {
+    width: 50%;
 }

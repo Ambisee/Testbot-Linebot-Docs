@@ -63,10 +63,10 @@
 }
 
 /* Delete Loading Display */
-#deleting.image-control {
+.deleting.image-control {
     opacity: 1;
 }
-#deleting > svg {
+.deleting > svg {
     fill-rule: evenodd;
     position: absolute;
     top: 50%;
@@ -77,6 +77,6 @@
     filter: drop-shadow(0 5px 10px black);
     animation: loading infinite 1s;
 }
-#deleting > svg .secondary-feature {
+.deleting > svg .secondary-feature {
     fill: white;
 }

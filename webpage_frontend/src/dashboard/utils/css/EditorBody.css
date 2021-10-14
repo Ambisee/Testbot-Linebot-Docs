@@ -4,7 +4,7 @@
     padding: 0 0.625rem;
     position: relative;
     overflow: hidden;
-    transition: max-height 375ms ease;
+    transition: max-height  375ms ease;
 }
 .editor-body h3 {
     margin: 0.5rem 0;

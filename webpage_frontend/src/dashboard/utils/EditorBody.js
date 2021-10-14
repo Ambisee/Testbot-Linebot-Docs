@@ -7,7 +7,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
   const [userChatState, setUserChatState] = useState(userChat);
-  const botChatEditor = useRef(0);
+  const botChatEditorRef = useRef(0);
   
   const descBox = useRef(0);
   const modifyCommand = () => {
@@ -23,7 +23,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
         description: descriptionState,
         syntax: syntaxState,
         user_chat: userChatState,
-        bot_chat: botChatEditor.current.value,
+        bot_chat: botChatEditorRef.current.value,
       }),
     }
 
@@ -66,7 +66,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
     return;
   }
   
-  let displayStyle = active? {maxHeight: descBox.current.scrollHeight.toString() + "px"} : {};
+  let displayStyle = active? {maxHeight: (descBox.current.scrollHeight + 250).toString() + "px"} : {};
 
   return (
     <div className="editor-body " ref={descBox} style={displayStyle}>
@@ -90,7 +90,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
         <div>
           <h3>Bot</h3>
           {/* <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea> */}
-          <MessageEditor message={botChat} elementRef={botChatEditor} />
+          <MessageEditor message={botChat} elementRef={botChatEditorRef} />
         </div>
       </article>
       <button type="button" onClick={modifyCommand}>Apply Change</button>

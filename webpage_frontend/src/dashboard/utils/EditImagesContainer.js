@@ -49,6 +49,7 @@ export default function EditImagesContainer(props) {
                 if (response.ok) return response.json()
             })
             .then(data => {
+                console.log(data.data);
                 setImages(data.data)
             })
     }, [doReload])

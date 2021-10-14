@@ -12,7 +12,19 @@ dbx = dropbox.Dropbox(os.getenv('DROPBOX_TOKEN'))
 def get_all_image_link():
     linkObj = dbx.sharing_get_shared_links().links
     
-    linkObj = list(filter(lambda obj: obj.path.endswith('.png') or obj.path.endswith('.jpg'), linkObj))
+    # payload = {}
+    # payload['data'] = list(
+    #     map(
+    #         lambda obj:
+    #             (
+    #                 
+    #                  dbx.sharing_create_shared_link().link
+    #             ),
+    #             dbx.files_get_list_folder('/Images').entries
+    #     )
+    # )
+
+    linkObj = list(filter(lambda obj: any(ext in obj.path for ext in ['.jpg', 'jpeg', '.png']), linkObj))
     payload = {}
     payload['data'] = list(
         map(
@@ -20,8 +32,8 @@ def get_all_image_link():
                 (
                     *obj.path.split('/')[-1].split('.'),
                     obj.url.replace('www.dropbox', 'dl.dropboxusercontent'),
-                )
-            , linkObj
+                ), 
+                linkObj
         )
     )
 

@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Loading from './Loading.js';
+import React, { useState, useEffect, useRef, useReducer } from 'react';
+import ImageReceiver from './ImageReceiver.js';
 import './css/MessageEditor.css';
 
+function reducer(state, action) {
+    return { filePath: action.filePath };
+}
+
 export default function MessageEditor({ elementRef = null, message = null }) {
-    const [receivedFilePath, setReceivedFilePath] = useState(null);
+    const [state, dispatch] = useReducer(reducer, { filePath: null });
     const [newMessage, setNewMessage] = useState(message);
     const [mode, setMode] = useState(0);
     const fileNameRef = useRef(0);
@@ -28,17 +32,6 @@ export default function MessageEditor({ elementRef = null, message = null }) {
         return;
     }
 
-    const imagePreviewer = () => {
-        let defFileName = fileReceiver.current.value ? fileReceiver.current.value.split('\\').at(-1).split('.')[0] : null;
-        
-        return (receivedFilePath !== null) && (defFileName !== null) ? (
-            <div className="previewer">
-                <img src={receivedFilePath} alt="No preview"></img>
-            </div>
-            ) :
-            null;
-    }
-
     const selectEditorMode = () => {
         switch (mode) {
             case 0:
@@ -48,14 +41,7 @@ export default function MessageEditor({ elementRef = null, message = null }) {
             case 1:
                 return (
                     <div>
-                        <input
-                            type="file"
-                            name="filepath"
-                            accept="image/jpeg, image/png"
-                            ref={elementRef}
-                            onChange={(e) => readUI(e)}
-                        />
-                        {imagePreviewer()}
+                        <ImageReceiver filePathRef={elementRef} filePath={state.filePath} dispatch={dispatch} />
                     </div>
                 );
             case 2:
