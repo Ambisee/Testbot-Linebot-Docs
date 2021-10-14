@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Command from './Command.js';
+import CommandDisplayer from './CommandDisplayer.js';
 import './css/CommandCategory.css';
 
 export default function CommandCategory(props) {
@@ -8,7 +8,7 @@ export default function CommandCategory(props) {
 
   useEffect(() => {
     setDisplaySections(props.categoryFunctions.map((obj) => (
-      <Command
+      <CommandDisplayer
         key={obj.name}
         name={obj.name}
         description={obj.description}

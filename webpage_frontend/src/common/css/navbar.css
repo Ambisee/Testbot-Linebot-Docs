@@ -6,6 +6,7 @@
 nav {
     width: 100%;
     height: var(--navbar-height);
+    padding: 0 2rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -30,7 +31,6 @@ nav {
     min-width: 7.5rem;
     display: flex;
     align-items: center;
-    margin-left: 2.5rem;
     justify-content: space-between;
     letter-spacing: 1px;
     z-index: 5;
@@ -55,7 +55,6 @@ nav svg .secondary {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin-right: 2.5rem;
     z-index: 11;
     cursor: pointer;
 }
@@ -148,7 +147,6 @@ nav svg .secondary {
         align-items: center;
         z-index: 5;
         box-shadow: none;
-        margin-right: 2.5rem;
         transition: none;
     }
     .navbar-list a:hover {

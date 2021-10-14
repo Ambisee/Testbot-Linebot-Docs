@@ -12,10 +12,9 @@ export default function DashboardPage(props) {
                 <title>{props.appTitle ? props.appTitle : ""} | Editor Dashboard</title>
             </Helmet>
             <DashboardNavBar />
-            <div style={{ height: 'var(--navbar-height)' }}></div>
             <EditImagesContainer />
             <EditCommandsContainer />
-            <Footer />
+            <Footer links={props.footerData} />
         </div>
     )
 }

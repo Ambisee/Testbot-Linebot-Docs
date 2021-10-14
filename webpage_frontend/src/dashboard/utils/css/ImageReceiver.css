@@ -1,0 +1,12 @@
+/* Image Receiver */
+.image-receiver {
+    width: 100%;
+}
+.image-receiver input[type=file] {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.image-receiver img {
+    max-width: 50rem;
+    width: 100%;
+}

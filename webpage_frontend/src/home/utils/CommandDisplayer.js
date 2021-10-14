@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import CommandHeader from './CommandHeader.js';
+import CommandHeader from '../../common/CommandHeader.js';
 import CommandDescription from './CommandDescription.js';
-import './css/Command.css';
+import '../../common/css/Command.css';
 
-export default function Command(props) {
+export default function CommandDisplayer(props) {
 	const [toggle, setToggle] = useState(false);
 
-	let sectionClass = "command ";
+	let sectionClass = "command";
 	if (toggle) {
-		sectionClass += "toggled-command ";
+		sectionClass += " toggled-command";
 	}
 
 	return (

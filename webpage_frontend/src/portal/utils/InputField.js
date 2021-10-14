@@ -18,8 +18,8 @@ export default function InputField(props) {
                 <span>{props.name}</span>
             </label>
             <button className="icon-button" onClick={clearInput} type="button">
-                <div className="line-1"></div>
-                <div className="line-2"></div>
+                <div className="cross-line-1"></div>
+                <div className="cross-line-2"></div>
             </button>
         </div>
     )

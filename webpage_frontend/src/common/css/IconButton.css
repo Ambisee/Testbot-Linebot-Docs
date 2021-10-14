@@ -7,43 +7,39 @@
 .icon-button * {
     transition: 0.25s ease;
 }
-.icon-button div[class|=line] {
+
+/* For Custom X Icon */
+.icon-button div[class*=line] {
     position: absolute;
     top: calc(100% - 2rem);
     left: 50%;
-    width: 1.75rem;
-    height: 2px;
+    width: 1.25rem;
+    height: 1.5px;
     transform-origin: center;
     background-color: black;
 }
-.icon-button .line-1 {
+.icon-button .cross-line-1 {
     transform: translate(-50%, -50%) rotate(45deg);
 }
-.icon-button .line-2 {
+.icon-button .cross-line-2 {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
-.icon-button:hover .line-1 {
+.icon-button:hover .cross-line-1 {
     transform: translate(-50%, -50%) rotate(45deg) scaleX(1.1);
 }
-.icon-button:hover .line-2 {
+.icon-button:hover .cross-line-2 {
     transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.1);
 }
+
+/* For Text Based Icons */
 .icon-button span {
     height: 100%;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 300;
     position: relative;
     display: inline-block;
     transform-origin: center;
 }
 .icon-button span:hover {
     transform: scale(1.25);
-}
-
-/* X Button - Specified Container */
-.input-field .icon-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 20%;
-    height: 100%;
 }

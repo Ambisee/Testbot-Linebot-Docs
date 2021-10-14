@@ -1,0 +1,33 @@
+/* Loading Icon */
+.loading {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+.loading svg {
+    animation: infinite loading 1.5s;
+}
+.loading svg .primary-feature,
+.loading svg .secondary-feature {
+    fill-rule: evenodd;
+}
+.loading svg .primary-feature {
+    fill: black;
+}
+.loading svg .secondary-feature {
+    fill: white;
+}
+
+
+/* Loading Animations */
+@keyframes loading {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

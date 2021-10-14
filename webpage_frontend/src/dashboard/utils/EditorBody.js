@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
+import MessageEditor from './MessageEditor.js';
 import './css/EditorBody.css';
 
-export default function EditorBody({ name="", function_category=0, description="", syntax="", userChat="", botChat="", active=false, onChangeCommand=() => {}}) {
-  const [nameState, setNameState] = useState(name == 'New Command' ? '' : name);
+export default function EditorBody({ name = "", function_category = 0, description = "", syntax = "", userChat = "", botChat = "", active = false, callback = () => {} }) {
+  const [nameState, setNameState] = useState(name === 'New Command' ? '' : name);
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
   const [userChatState, setUserChatState] = useState(userChat);
-  const [botChatState, setBotChatState] = useState(botChat);
+  const botChatEditor = useRef(0);
   
   const descBox = useRef(0);
   const modifyCommand = () => {
@@ -22,7 +23,7 @@ export default function EditorBody({ name="", function_category=0, description="
         description: descriptionState,
         syntax: syntaxState,
         user_chat: userChatState,
-        bot_chat: botChatState,
+        bot_chat: botChatEditor.current.value,
       }),
     }
 
@@ -38,7 +39,7 @@ export default function EditorBody({ name="", function_category=0, description="
         setBotChatState('');
       }
 
-      onChangeCommand();
+      callback();
     });
 
     return;
@@ -59,7 +60,7 @@ export default function EditorBody({ name="", function_category=0, description="
       .then(response => response.json())
       .then(data => {
         alert(data.message);
-        onChangeCommand();
+        callback();
       })
     
     return;
@@ -68,7 +69,7 @@ export default function EditorBody({ name="", function_category=0, description="
   let displayStyle = active? {maxHeight: descBox.current.scrollHeight.toString() + "px"} : {};
 
   return (
-    <div className="editor-body" ref={descBox} style={displayStyle}>
+    <div className="editor-body " ref={descBox} style={displayStyle}>
       <article>
         <h3>Name</h3>
         <input type="text" name="name" value={nameState} onChange={(e) => setNameState(e.target.value)}></input>
@@ -88,7 +89,8 @@ export default function EditorBody({ name="", function_category=0, description="
         </div>
         <div>
           <h3>Bot</h3>
-          <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea>
+          {/* <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea> */}
+          <MessageEditor message={botChat} elementRef={botChatEditor} />
         </div>
       </article>
       <button type="button" onClick={modifyCommand}>Apply Change</button>

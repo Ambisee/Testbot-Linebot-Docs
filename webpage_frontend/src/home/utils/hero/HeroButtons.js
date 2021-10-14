@@ -8,7 +8,7 @@ export default function HeroButtons(props) {
     }
     
     return (
-        <div className="hero-buttons">
+        <div id="hero-buttons">
             <a href="https://lin.ee/PeqBKYB">Add TestBot as friend</a>
             <button onClick={scrollToCommandsList}>See list of commands</button>
         </div>

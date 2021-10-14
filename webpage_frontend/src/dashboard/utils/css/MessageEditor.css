@@ -1,0 +1,13 @@
+/* Message Editor - Header */
+.message-editor header {
+    display: flex;
+}
+
+/* Message Editor - Buttons */
+.message-editor header button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+}

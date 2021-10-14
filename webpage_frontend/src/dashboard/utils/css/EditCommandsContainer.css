@@ -67,15 +67,20 @@
 /* Commands Container - New Category */
 .commands-container .new-category {
   max-height: 0;
-  padding-bottom: 0.5rem;
   overflow: hidden;
-  transition: 
-    max-height 0.375s ease;
+}
+.commands-container .new-category .editor-category {
+  padding: 0;
 }
 .commands-container .new-category.toggle {
-  max-height: 3.5rem;
+  max-height: none;
 }
 
+/* Commands Container - Loading Icon */
+.commands-container .loading svg {
+  width: 5rem;
+  height: 5rem;
+}
 
 @media screen and (min-width: 28.75rem) {
   .commands-container .container-header > div {

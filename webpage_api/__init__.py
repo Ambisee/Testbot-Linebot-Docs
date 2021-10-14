@@ -53,7 +53,6 @@ def handle_login():
             if matched_user.admin:
                 session['admin'] = True
             session.modified = True
-            print(session)
             return redirect('/dashboard')
 
         return redirect('/portal')
@@ -73,7 +72,6 @@ def handle_logout():
 
     session.pop('user')
     session.pop('admin')
-    print('logged out')
     return redirect('/portal')
 
 
@@ -90,7 +88,7 @@ def get_current_user():
 
 # Command handlers
 @app.route('/get-all-commands', methods=['GET'])
-def display_all_commands():
+def get_all_commands():
     """
     GET :
     Returns a JSON object with each category as keys and 
@@ -133,7 +131,6 @@ def modify_command():
     """
     if request.method == 'PATCH':
         body = request.get_json()
-        print(repr(body.get('description')))
         search_result = Function.query.filter_by(
             syntax=body.get('original_syntax')).first()
         if search_result is not None:

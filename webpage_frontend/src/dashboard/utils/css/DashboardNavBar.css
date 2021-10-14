@@ -98,3 +98,9 @@
   opacity: 1;
   visibility: visible;
 }
+
+/* Dashboard Navbar - Navbar Barrier */
+.navbar-barrier {
+  height: var(--navbar-height);
+  width: 100%;
+}

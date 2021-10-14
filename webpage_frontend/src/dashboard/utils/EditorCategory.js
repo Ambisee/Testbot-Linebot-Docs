@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import CommandEditor from './CommandEditor.js';
 import './css/EditorCategory.css';
 
-export default function EditorCategory(props) {
+export default function EditorCategory({ deletable = false, categoryName = "", categoryPostfix = "", categoryID = "", callback = () => {} }) {
   const [editorSections, setEditorSections] = useState([]);
-  const [categoryNameState, setCategoryNameState] = useState(props.categoryName + props.categoryPostfix);
+  const [categoryNameState, setCategoryNameState] = useState(categoryName + categoryPostfix);
   const [toggleNewCommand, setToggleNewCommand] = useState(false);
   let newCommandClass = 'new-command ';
 
@@ -17,7 +17,7 @@ export default function EditorCategory(props) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          'category_id': props.categoryID
+          'category_id': categoryID
         }),
       }
 
@@ -25,7 +25,7 @@ export default function EditorCategory(props) {
         .then(response => response.json())
         .then(data => {
           alert(data.message);
-          props.onChangeCategory();
+          callback();
         });
     }
     return;
@@ -38,7 +38,7 @@ export default function EditorCategory(props) {
     }
     
     const payload = {
-      category_id: props.categoryID,
+      category_id: categoryID,
       category_name: categoryNameState.split(' ')[0],
     }
     const requestOptions = {
@@ -49,14 +49,14 @@ export default function EditorCategory(props) {
       body: JSON.stringify(payload),
     }
 
-    if (props.categoryName == '') {
+    if  (categoryName == '') {
       requestOptions.method = 'POST';
       fetch('/webpage-api/modify-category', requestOptions)
         .then(response => response.json())
         .then(data => {
           alert(data.message);
           setCategoryNameState('');
-          props.onChangeCategory();
+         callback();
         })
       return;
     }
@@ -70,7 +70,7 @@ export default function EditorCategory(props) {
   }
 
   const modifyCommandCallback = () => {
-    fetch(`/webpage-api/find-category-commands/${props.categoryID}`)
+    fetch(`/webpage-api/find-category-commands/${categoryID}`)
       .then(response => response.json())
       .then(data => {
         setEditorSections(data.commands);
@@ -79,8 +79,8 @@ export default function EditorCategory(props) {
   }
 
   useEffect(() => {
-    if (props.categoryID > 0) {
-      fetch(`/webpage-api/find-category-commands/${props.categoryID}`)
+    if (categoryID > 0) {
+      fetch(`/webpage-api/find-category-commands/${categoryID}`)
         .then(response => response.json())
         .then(data => {
           setEditorSections(data.commands);
@@ -101,17 +101,17 @@ export default function EditorCategory(props) {
             <span>&#10004;</span>
           </button>
         </div>
-        {props.categoryID == 0 ?
+         {categoryID == 0 ?
           <></> :
           <div className="modify-buttons">
             <button className="icon-button" onClick={() => setToggleNewCommand(current => !current)}>
-              <span className="add-symbol">+</span>
+              <span >+</span>
             </button>
-            {props.new ?
-              <></> :
+            {deletable ?
               <button className="icon-button" onClick={deleteCategory}>
-                <span className="multiply-symbol">&times;</span>
-              </button>
+                <span>&times;</span>
+              </button> :
+              <></>
             }
           </div>
         }
@@ -120,12 +120,12 @@ export default function EditorCategory(props) {
         <CommandEditor
           key={""}
           name={"New Command"}
-          function_category={props.categoryID}
+          function_category={categoryID}
           syntax={""}
           description={""}
           userChat={""}
           botChat={""}
-          onChangeCommand={modifyCommandCallback}
+          callback={modifyCommandCallback}
         />
       </div>
       {editorSections.length > 0 ?
@@ -133,12 +133,12 @@ export default function EditorCategory(props) {
           <CommandEditor
             key={obj.syntax}
             name={obj.name}
-            function_category={props.categoryID}
+            function_category= {categoryID}
             syntax={obj.syntax}
             description={obj.description}
             userChat={obj.userChat}
             botChat={obj.botChat}
-            onChangeCommand={modifyCommandCallback}
+            callback={modifyCommandCallback}
           />
           )) :
           <></>

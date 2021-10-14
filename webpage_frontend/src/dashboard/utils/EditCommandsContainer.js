@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import EditorCategory from './EditorCategory.js';
+import Loading from './Loading.js';
 import './css/EditCommandsContainer.css';
 
-export default function EditCommandsContainer(props) {
+export default function EditCommandsContainer() {
   const [data, setData] = useState([]);
   const [toggleNewCategory, setToggleNewCategory] = useState(false);
   let newCategoryClass = "new-category ";
 
   const renderCategories = () => {
-    if (data) {
+    if (data.length > 0) {
       let commandCategories = data;
       let misc = commandCategories.findIndex(e => (e.id == 2));
 
@@ -21,12 +22,16 @@ export default function EditCommandsContainer(props) {
           categoryID={obj.id}
           categoryName={obj.name}
           categoryPostfix=" Functions"
-          onChangeCategory={refreshCategories}
-          new={[1, 2].includes(obj.id) ? true : false}
+          callback={refreshCategories}
+          deletable={[1, 2].includes(obj.id) ? false : true}
         />
       ))
     }
-    return [];
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   const refreshCategories = () => {
@@ -62,7 +67,7 @@ export default function EditCommandsContainer(props) {
         </div>
       </div>
       <div className={newCategoryClass}>
-        <EditorCategory key={0} categoryID={0} categoryName="" categoryPostfix="" new={true} onChangeCategory={refreshCategories} />
+        <EditorCategory key={0} categoryID={0} categoryName="" categoryPostfix="" deletable={false} rerenderCallback={refreshCategories} />
       </div>
       {renderCategories()}
     </div>

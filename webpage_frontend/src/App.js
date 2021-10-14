@@ -47,7 +47,6 @@ export default function App() {
                 <DashboardPage links={footerData} appTitle={appTitle} /> :
                 <Redirect to="/portal" />
               }} 
-              // return <DashboardPage links={footerData} appTitle={appTitle} />}}
             />
           </Switch>
       </Router>

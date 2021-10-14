@@ -40,3 +40,10 @@
     transform: translate(-1ch, -2rem);
     font-size: 0.75rem;
 }
+.input-field .icon-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 10%;
+    height: 100%;
+}
