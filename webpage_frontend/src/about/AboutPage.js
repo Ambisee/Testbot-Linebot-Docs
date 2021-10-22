@@ -12,7 +12,7 @@ export default function AboutPage(props) {
             </Helmet>
             <NavBar />
             <AboutSection />
-            <Footer links={props.links}/>
+            <Footer />
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import MessageEditor from './MessageEditor.js';
 import './css/EditorBody.css';
 
 export default function EditorBody({ name = "", function_category = 0, description = "", syntax = "", userChat = "", botChat = "", active = false, callback = () => {} }) {
@@ -7,7 +6,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
   const [descriptionState, setDescriptionState] = useState(description);
   const [syntaxState, setSyntaxState] = useState(syntax);
   const [userChatState, setUserChatState] = useState(userChat);
-  const botChatEditorRef = useRef(0);
+  const [botChatState, setBotChatState] = useState(botChat)
   
   const descBox = useRef(0);
   const modifyCommand = () => {
@@ -23,7 +22,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
         description: descriptionState,
         syntax: syntaxState,
         user_chat: userChatState,
-        bot_chat: botChatEditorRef.current.value,
+        bot_chat: botChatState
       }),
     }
 
@@ -89,8 +88,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
         </div>
         <div>
           <h3>Bot</h3>
-          {/* <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea> */}
-          <MessageEditor message={botChat} elementRef={botChatEditorRef} />
+          <textarea value={botChatState} onChange={e => setBotChatState(e.target.value)}></textarea>
         </div>
       </article>
       <button type="button" onClick={modifyCommand}>Apply Change</button>

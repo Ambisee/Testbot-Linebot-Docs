@@ -14,7 +14,7 @@ export default function HomePage(props) {
             <NavBar />
             <HeroContainer />
             <CommandsContainer />
-            <Footer links={props.links}/>
+            <Footer />
         </div>
     );
 }

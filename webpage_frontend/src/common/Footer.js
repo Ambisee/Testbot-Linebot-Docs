@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './css/Footer.css';
 
-export default function Footer({links = []}) {
+export default function Footer(props) {
     return (
         <footer>
             <section>
@@ -12,7 +12,7 @@ export default function Footer({links = []}) {
                     </div>
                     <div className="profile-description">
                         <h3>Ambisee</h3>
-                        <p>I code in Python and Javascript</p>
+                        <p>Computer science student. I code in Python and Javascript</p>
                         <a href="https://github.com/ambisee">Github</a>
                     </div>
                 </div>
@@ -35,12 +35,6 @@ export default function Footer({links = []}) {
                         height="32"
                     />
                 </a>
-            </section>
-            <section>
-                <h2>Other Links</h2>
-                <ul className="other-links">
-                    {links.map((obj) => {return <li key={obj.name}><a href={obj.link}>{obj.name}</a></li>})}
-                </ul>
             </section>
         </footer>
     );

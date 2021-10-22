@@ -12,7 +12,7 @@ export default function PortalPage(props) {
             </Helmet>
             <NavBar />
             <LoginContainer />
-            <Footer links={props.links} />
+            <Footer />
         </div>
     )
 }
