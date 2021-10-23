@@ -79,6 +79,7 @@ export default function EditorCategory({ deletable = false, categoryName = "", c
   }
 
   useEffect(() => {
+    console.log('hello')
     if (categoryID > 0) {
       fetch(`/webpage-api/find-category-commands/${categoryID}`)
         .then(response => response.json())

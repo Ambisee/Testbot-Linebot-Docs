@@ -36,9 +36,14 @@
 /* Profile Container - Headings */
 .profile-container .about-section-header {
     padding-bottom: 5px;
-    font-weight: 700;
     position: relative;
     border-bottom: 0.01rem solid black;
+}
+.profile-container .about-section-header span {
+    font-weight: 300;
+    padding: 0 0.25rem;
+    background: black;
+    color: white;
 }
 
 /* Profile Container - Description */

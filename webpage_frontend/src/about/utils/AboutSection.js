@@ -6,11 +6,11 @@ export default function AboutSection(props) {
         <div className="profile-container">
             <div className="picture">
                 <img src="../../static/images/Bot Logo.png" alt="TestBot Logo"></img>
-                <h3>TestBot</h3>
+                <span>TestBot</span>
             </div>
             <div className="name">
                 <div className="about-section-header">
-                    Name
+                    <span>Name</span>
                 </div>
                 <div className="about-section-description">
                     TestBot
@@ -18,7 +18,7 @@ export default function AboutSection(props) {
             </div>
             <div className="line-id">
                 <div className="about-section-header">
-                    LINE ID
+                    <span>LINE ID</span>
                 </div>
                 <div className="about-section-description">
                     @210zohoi
@@ -26,7 +26,7 @@ export default function AboutSection(props) {
             </div>
             <div className="language">
                 <div className="about-section-header">
-                    Language Used
+                    <span>Language Used</span>
                 </div>
                 <div className="about-section-description">
                     Python (3.8.3)
@@ -34,7 +34,7 @@ export default function AboutSection(props) {
             </div>
             <div className="libraries">
                 <div className="about-section-header">
-                    Libraries
+                    <span>Libraries</span>
                 </div>
                 <div className="about-section-description">
                     <ul>
@@ -47,7 +47,7 @@ export default function AboutSection(props) {
             </div>
             <div className="description">
                 <div className="about-section-header">
-                    Description
+                    <span>Description</span>
                 </div>
                 <div className="about-section-description">
                     This bot was deployed in December 2020 during the COVID-19 pandemic and was made for 

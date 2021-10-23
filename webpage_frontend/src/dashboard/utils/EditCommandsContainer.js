@@ -61,7 +61,7 @@ export default function EditCommandsContainer() {
         <h1>Edit Commands</h1>
         <div>
           <button onClick={() => {setToggleNewCategory(current => !current)}}>
-            <span></span>
+            <span>+</span>
             <span>Add Category</span>
           </button>
         </div>
