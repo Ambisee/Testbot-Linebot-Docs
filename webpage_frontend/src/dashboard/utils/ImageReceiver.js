@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-import { states } from './EditImagesContainer.js';
+import { READ_INPUT_FILE, REMOVE_INPUT_FILE } from './dispatcherCode.js';
 import './css/ImageReceiver.css';
 
-export default function ImageReceiver({ filePathRef = null, filePath = null, dispatch = (obj) => {} }) {
+export default function ImageReceiver({ dispatch = null }) {
     const [localFilePathStorage, setLocalFilePathStorage] = useState(null);
-    
-    const readUI = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                filePathRef !== null ? dispatch({ filePath: ev.target.result }) : setLocalFilePathStorage(ev.target.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
+
+    const readInput = (e) => {
+        const fileExist = (e.target.files && e.target.files[0]);
+        if (fileExist) {
+            dispatch !== null ? dispatch({ eventType: READ_INPUT_FILE, payload: e.target.files[0] }) : null;
+            setLocalFilePathStorage(URL.createObjectURL(e.target.files[0]));
+            console.log('hello')
+            return;
         }
-        filePathRef !== null ? dispatch({ filePath: null }) : setLocalFilePathStorage(null)
+        setLocalFilePathStorage(null);
+        dispatch !== null ? dispatch({ eventType: REMOVE_INPUT_FILE }) : null;
+
+        return;
     }
-    
+
     return (
         <div className="image-receiver">
             <input
                 type="file"
                 accept="image/jpeg, image/png"
-                ref={filePathRef}
-                onChange={(e) => readUI(e)}
+                onChange={readInput}
             ></input>
-            {localFilePathStorage !== null || filePath !== null ?
-                <div>
-                    <img src={filePathRef !== null ? filePath : localFilePathStorage}></img>
-                </div> :
+            {localFilePathStorage ?
+                <img src={localFilePathStorage} lodaing="lazy" /> :
                 <></>
             }
         </div>
-    )
+    );
 }

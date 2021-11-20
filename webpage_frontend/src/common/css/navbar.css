@@ -40,11 +40,11 @@ nav {
 nav svg {
     height: 3.125rem;
 }
-nav svg .primary,
-nav svg .secondary {
+nav svg .primary-feature,
+nav svg .secondary-feature {
     fill-rule: evenodd;
 }
-nav svg .secondary {
+nav svg .secondary-feature {
     fill: transparent;
 }
 /* Burger Icon */

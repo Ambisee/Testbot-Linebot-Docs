@@ -7,6 +7,8 @@
     margin-bottom: 0.5rem;
 }
 .image-receiver img {
-    max-width: 50rem;
-    width: 100%;
+    max-width: 30rem;
+    max-height: 30rem;
+    object-fit: contain;
+    background-color: black;
 }

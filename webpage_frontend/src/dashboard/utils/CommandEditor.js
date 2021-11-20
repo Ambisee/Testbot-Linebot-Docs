@@ -21,12 +21,11 @@ export default function CommandEditor(props) {
                 syntax={props.syntax}
                 userChat={props.userChat}
                 botChat={props.botChat}
-                edit={props.edit}
                 callback={() => {
-                    setToggle(props.name == 'New Command' ? false : true);
-                    props.callback();
+                    setToggle(props.name == 'New Command' ? false : true);  // Minimizes the description if it's for a new command
+                    props.callback();                                       // Callback function received from parent component
                 }}
-                active={toggle} 
+                active={toggle}                                             // Bool for minimizing or restoring the description box 
             />
         </section>
     );

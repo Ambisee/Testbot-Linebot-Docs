@@ -56,6 +56,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
       })
     }
 
+    // Send a request to the backend to modify the content of the specified command
     fetch('/webpage-api/modify-command', requestOptions)
       .then(response => response.json())
       .then(data => {
@@ -66,7 +67,7 @@ export default function EditorBody({ name = "", function_category = 0, descripti
     return;
   }
   
-  let displayStyle = active? {maxHeight: (descBox.current.scrollHeight + 250).toString() + "px"} : {};
+  let displayStyle = active ? { maxHeight: (descBox.current.scrollHeight + 250).toString() + "px" } : {};
 
   return (
     <div className="editor-body " ref={descBox} style={displayStyle}>

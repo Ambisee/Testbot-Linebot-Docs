@@ -9,8 +9,8 @@ import DashboardPage from './dashboard/DashboardPage.js';
 export default function App() {
     const [sessionData, setSessionData] = useState({});
     const [rendered, setRendered] = useState(false);
-    const footerData = [{name: "Minesweeper", link: "#"}];
     const appTitle = "TestBot"
+    const footerData = [];
     
     const getSession = () => {
       const requestOptions = {

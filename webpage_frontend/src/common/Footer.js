@@ -36,12 +36,6 @@ export default function Footer({links = []}) {
                     />
                 </a>
             </section>
-            <section>
-                <h2>Other Links</h2>
-                <ul className="other-links">
-                    {links.map((obj) => {return <li key={obj.name}><a href={obj.link}>{obj.name}</a></li>})}
-                </ul>
-            </section>
         </footer>
     );
 }

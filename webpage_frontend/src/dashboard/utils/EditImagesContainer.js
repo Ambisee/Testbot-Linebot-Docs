@@ -2,28 +2,37 @@ import React, { useRef, useState, useEffect, useReducer } from 'react';
 import ImageDisplayer from './ImageDisplayer.js';
 import ImageReceiver from './ImageReceiver.js';
 import Loading from './Loading.js';
+import { READ_INPUT_FILE, REMOVE_INPUT_FILE, ON_CHANGE_FILENAME } from './dispatcherCode.js';
 import './css/EditImagesContainer.css';
 
 function reducer(state, action) {
-    return {filePath: action.filePath};
+    const newState = new Object(state);
+    switch (action.eventType) {
+        case READ_INPUT_FILE:
+            return { ...state, fileObject: action.payload, fileName: action.payload.name.split('.')[0] };
+        case REMOVE_INPUT_FILE:
+            return { ...state, fileObject: null, fileName: null };
+        case ON_CHANGE_FILENAME:
+            return { ...state, fileName: action.e.target.value };
+        default:
+            return {...state};
+    }
 }
 
 export default function EditImagesContainer(props) {
-    const [state, dispatch] = useReducer(reducer, { filePath: null });
+    const [state, dispatch] = useReducer(reducer, { fileObject: null, fileName: null });
     const [loadingUpload, setLoadingUpload] = useState(false);
     const [doReload, setDoReload] = useState(false);
     const [images, setImages] = useState([]);
-    const fileNameRef = useRef("");
-    const fileReceiver = useRef(0);
     
     const submitFile = () => {
-        if (fileNameRef.current.value == '') {
+        if (state.fileName == '') {
             alert('Please provide a Filename');
         }
 
         let data = new FormData();
-        data.append('name', fileNameRef.current.value);
-        data.append('file', fileReceiver.current.files[0])
+        data.append('name', state.fileName);
+        data.append('file', state.fileObject);
 
         const requestOptions = {
             method: 'POST',
@@ -37,8 +46,7 @@ export default function EditImagesContainer(props) {
                 return response.json();
             })
             .then(data => {
-                dispatch({ filePath: null });
-                fileReceiver.current.value = null;
+                dispatch({ eType: REMOVE_INPUT_FILE });
                 setDoReload(current => !current);
             });
     }
@@ -49,27 +57,23 @@ export default function EditImagesContainer(props) {
                 if (response.ok) return response.json()
             })
             .then(data => {
-                console.log(data.data);
                 setImages(data.data)
             })
     }, [doReload])
 
     let imageUploadConfirmation = () => {
         const removeFile = () => {
-            dispatch({ filePath: null });
-            fileReceiver.current.value = null;
+            dispatch({ eventType: REMOVE_INPUT_FILE, payload: null, fileName: null });
         }
-        
-        let defFileName = fileReceiver.current.value ? fileReceiver.current.value.split('\\').at(-1).split('.')[0] : null;
-        
-        return (defFileName !== null) ? (
+
+        return (state.fileObject !== null) ? (
             <div className="controller">
                 <div>
                     <span>Filename</span>
                     <span>
                         The keyword that will be used to call the image from the bot.
                     </span>
-                    <input name="name" type="text" ref={fileNameRef} defaultValue={defFileName} />
+                    <input name="name" type="text" onChange={(e) => dispatch({ eventType: ON_CHANGE_FILENAME, e: e })} value={state.fileName}/>
                     {loadingUpload ? 
                         <Loading /> :
                         <></>
@@ -83,7 +87,7 @@ export default function EditImagesContainer(props) {
                 </button>
             </div>
             ) :
-            null;
+            <></>;
     }
 
     return (
@@ -92,7 +96,7 @@ export default function EditImagesContainer(props) {
                 <h1>Edit Images</h1>
             </div>
             <div className="upload">
-                <ImageReceiver filePathRef={fileReceiver} filePath={state.filePath} dispatch={dispatch} />
+                <ImageReceiver dispatch={dispatch} />
                 {imageUploadConfirmation()}
             </div>
             <div className="image-gallery">
