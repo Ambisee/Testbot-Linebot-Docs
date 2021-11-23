@@ -20,7 +20,13 @@ export default function FormField(props) {
                 <span>{props.name}</span>
             </label>
             {props.type == 'password' ?
-                <button className="icon-button" onMouseDown={() => setHidePassword(current => !current)} type="button">
+                <button
+                    className="icon-button"
+                    onMouseDown={() => setHidePassword(false)}
+                    onMouseLeave={() => setHidePassword(true)}
+                    onMouseUp={() => setHidePassword(true)}
+                    type="button"
+                >
                     {hidePassword ?
                         <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
                             <path id="Eye_Icon_1" data-name="Eye Icon 1" className="primary-feature" d="M100.5,151C47.757,151,25.17,120.226,5,100c21.5-21.563,42.757-51,95.5-51s76.572,32.019,95.5,51C177.759,118.292,153.243,151,100.5,151Zm0.565-90.667c-47.348,0-67.008,26.4-80.242,39.667,12.619,12.654,31.765,39.667,79.112,39.667S170.149,110.056,180.178,100C170.176,89.971,148.413,60.333,101.065,60.333Zm0,73.667c-20.752,0-37.575-15.222-37.575-34s16.823-34,37.575-34,37.575,15.222,37.575,34S121.817,134,101.065,134ZM84.112,81.867a9.067,9.067,0,1,0,9.041,9.067A9.054,9.054,0,0,0,84.112,81.867Z" />
@@ -31,12 +37,11 @@ export default function FormField(props) {
                       
                     }
                 </button> :
-                <></>
+                <button className="icon-button" onClick={clearInput} type="button">
+                    <div className="cross-line-1"></div>
+                    <div className="cross-line-2"></div>
+                </button>
             }
-            <button className="icon-button" onClick={clearInput} type="button">
-                <div className="cross-line-1"></div>
-                <div className="cross-line-2"></div>
-            </button>
         </div>
     )
 }

@@ -16,9 +16,11 @@ application = DispatcherMiddleware(webpage_frontend_app, {
 })
 
 if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
-    run_simple('localhost',
-                8000,
-                application,
-                use_debugger=True,
-                use_evalex=True,
-                use_reloader=True)
+    run_simple(
+        'localhost',
+        8000,
+        application,
+        use_debugger=True,
+        use_evalex=True,
+        use_reloader=True
+    )

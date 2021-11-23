@@ -11,7 +11,7 @@
     justify-content: space-between;
 }
 .category-header input[type=text] {
-    font-family: 'Poppins', sans-serif; 
+    font-family: 'Poppins', sans-serif;
     padding: 1rem 0;
     font-weight: bold;
     font-size: 1.25rem;
@@ -27,7 +27,6 @@
     justify-content: flex-end;
 }
 
-
 /* Editor Category - Header Right */
 .header-right {
     display: flex;
@@ -41,11 +40,12 @@
     background-color: black;
 }
 .header-right button span {
+    position: relative;
     color: white;
 }
-.header-right button:hover span {
-    transform: scale(1.25);
-}
+/* .header-right button:hover span {
+    transform: scale(1.1);
+} */
 
 /* Editor Category - New Command */
 .new-command {

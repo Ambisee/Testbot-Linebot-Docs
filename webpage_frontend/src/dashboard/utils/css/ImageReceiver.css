@@ -3,12 +3,40 @@
     width: 100%;
 }
 .image-receiver input[type=file] {
-    display: block;
-    margin-bottom: 0.5rem;
+    display: none;
 }
 .image-receiver img {
     max-width: 30rem;
     max-height: 30rem;
     object-fit: contain;
     background-color: black;
+}
+
+/* Image Receiver - File Handler Buttons */
+.image-receiver .file-handler-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;  
+}
+.image-receiver button {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: white;
+}
+.image-receiver .upload-button {
+    background-color: #214eff;
+}
+.image-receiver .upload-button:hover {
+    box-shadow: 
+        0 0 0 0.2rem white,
+        0 0 0 0.4rem #214eff;
+}
+.image-receiver .remove-button {
+    background-color: #ff2525;
+}
+.image-receiver .remove-button:hover {
+    box-shadow:
+        0 0 0 0.2rem white,
+        0 0 0 0.4rem #ff2525;
 }

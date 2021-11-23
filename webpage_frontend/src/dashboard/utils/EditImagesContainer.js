@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import ImageDisplayer from './ImageDisplayer.js';
 import ImageReceiver from './ImageReceiver.js';
 import Loading from './Loading.js';
@@ -6,7 +6,6 @@ import { READ_INPUT_FILE, REMOVE_INPUT_FILE, ON_CHANGE_FILENAME } from './dispat
 import './css/EditImagesContainer.css';
 
 function reducer(state, action) {
-    const newState = new Object(state);
     switch (action.eventType) {
         case READ_INPUT_FILE:
             return { ...state, fileObject: action.payload, fileName: action.payload.name.split('.')[0] };
@@ -62,10 +61,6 @@ export default function EditImagesContainer(props) {
     }, [doReload])
 
     let imageUploadConfirmation = () => {
-        const removeFile = () => {
-            dispatch({ eventType: REMOVE_INPUT_FILE, payload: null, fileName: null });
-        }
-
         return (state.fileObject !== null) ? (
             <div className="controller">
                 <div>
@@ -79,9 +74,6 @@ export default function EditImagesContainer(props) {
                         <></>
                     }  
                 </div>
-                <button className="icon-button" onClick={removeFile}>
-                    <span>&times; Remove</span>
-                </button>
                 <button type="submit" className="icon-button" onClick={submitFile}>
                     <span>&#10004; Submit</span>
                 </button>
@@ -96,7 +88,7 @@ export default function EditImagesContainer(props) {
                 <h1>Edit Images</h1>
             </div>
             <div className="upload">
-                <ImageReceiver dispatch={dispatch} />
+                <ImageReceiver stateDispatch={[state, dispatch]} />
                 {imageUploadConfirmation()}
             </div>
             <div className="image-gallery">
