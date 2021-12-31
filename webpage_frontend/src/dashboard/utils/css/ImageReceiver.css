@@ -20,23 +20,25 @@
 }
 .image-receiver button {
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 0.75rem;
     color: white;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    transition: 0.15s;
 }
 .image-receiver .upload-button {
     background-color: #214eff;
 }
 .image-receiver .upload-button:hover {
     box-shadow: 
-        0 0 0 0.2rem white,
-        0 0 0 0.4rem #214eff;
+        0 0 0 0.15rem white,
+        0 0 0 0.25rem #214eff;
 }
 .image-receiver .remove-button {
     background-color: #ff2525;
 }
 .image-receiver .remove-button:hover {
     box-shadow:
-        0 0 0 0.2rem white,
-        0 0 0 0.4rem #ff2525;
+        0 0 0 0.15rem white,
+        0 0 0 0.25rem #ff2525;
 }

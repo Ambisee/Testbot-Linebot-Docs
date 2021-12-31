@@ -37,10 +37,11 @@
     font-size: 2rem;
     font-weight: 300;
     position: relative;
+    display: block;
     transform-origin: center;
 }
 .icon-button span:hover {
-    transform: scale(1.25);
+    transform: scale(1.2);
 }
 
 /* For SVG Icons */

@@ -3,15 +3,13 @@ import ImageReceiver from './ImageReceiver.js';
 import './css/MessageEditor.css';
 
 function reducer(state, action) {
-    return { filePath: action.filePath };
+    return {}
 }
 
 export default function MessageEditor({ elementRef = null, message = null }) {
-    const [state, dispatch] = useReducer(reducer, { filePath: null });
+    const [state, dispatch] = useReducer(reducer, { fileObject: null, fileName: null });
     const [newMessage, setNewMessage] = useState(message);
     const [mode, setMode] = useState(0);
-    const fileNameRef = useRef(0);
-    const fileReceiver = useRef(0);
     
     useEffect(() => {
         if (message.includes('dl.dropboxusercontent')) {
@@ -41,7 +39,7 @@ export default function MessageEditor({ elementRef = null, message = null }) {
             case 1:
                 return (
                     <div>
-                        <ImageReceiver filePathRef={elementRef} filePath={state.filePath} dispatch={dispatch} />
+                        <ImageReceiver stateDispatch={[]} />
                     </div>
                 );
             case 2:

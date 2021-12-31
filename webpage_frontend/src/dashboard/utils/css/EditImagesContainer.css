@@ -21,6 +21,7 @@
 
 /* Edit Images Container - Preview Controller */
 .controller {
+    margin-top: 0.5rem;
     position: relative;
 }
 .controller > div {

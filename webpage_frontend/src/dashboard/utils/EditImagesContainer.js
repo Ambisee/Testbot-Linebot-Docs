@@ -45,7 +45,7 @@ export default function EditImagesContainer(props) {
                 return response.json();
             })
             .then(data => {
-                dispatch({ eType: REMOVE_INPUT_FILE });
+                dispatch({ eventType: REMOVE_INPUT_FILE });
                 setDoReload(current => !current);
             });
     }

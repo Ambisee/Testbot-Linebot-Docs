@@ -26,6 +26,9 @@
     gap: 0.5rem;
     justify-content: flex-end;
 }
+.category-header .modify-buttons span {
+    display: block;
+}
 
 /* Editor Category - Header Right */
 .header-right {
@@ -40,12 +43,12 @@
     background-color: black;
 }
 .header-right button span {
-    position: relative;
     color: white;
+    position: relative;
 }
-/* .header-right button:hover span {
-    transform: scale(1.1);
-} */
+.header-right button:hover span {
+    transform: scale(1.2);
+}
 
 /* Editor Category - New Command */
 .new-command {

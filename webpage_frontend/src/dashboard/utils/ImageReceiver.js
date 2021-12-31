@@ -9,6 +9,7 @@ export default function ImageReceiver({ stateDispatch=[] }) {
 
     const readInput = (e) => {
         const fileReceived = (e.target.files && e.target.files[0]);
+        
         if (fileReceived) {
             dispatch !== null ?
                 dispatch({ eventType: READ_INPUT_FILE, payload: e.target.files[0] }) :
@@ -21,8 +22,7 @@ export default function ImageReceiver({ stateDispatch=[] }) {
         return;
     }
 
-
-    const fileExists = state.fileObject !== null || (localFilePathStorage !== null);
+    const fileExists = (state?.fileObject != null) || (localFilePathStorage !== null);
     return (
         <div className="image-receiver">
             <div>
@@ -41,7 +41,7 @@ export default function ImageReceiver({ stateDispatch=[] }) {
                 </div>
             </div>
             {fileExists ?
-                <img src={state?.fileObject !== undefined ? URL.createObjectURL(state.fileObject) : localFilePathStorage} /> :
+                <img src={state?.fileObject != null ? URL.createObjectURL(state.fileObject) : localFilePathStorage} /> :
                 <></>
             }
         </div>

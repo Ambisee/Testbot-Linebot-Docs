@@ -67,12 +67,11 @@ def upload_image():
 def delete_image():
     if request.method == 'DELETE':
         target = request.get_json().get('deletion_target')
-        print(f'/Images/{target}')
         if target is not None:
             try:
                 dbx.files_delete(f'/Images/{target}')
                 return {'message': 'File successfully deleted'}, 200
-            except dropbox.exceptions.ApiError as e:
+            except Exception as e:
                 print(e)
                 return {'message': 'Target file not found'}, 404
 
