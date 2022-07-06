@@ -1,0 +1,47 @@
+/* Input Field */
+.form-field {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    position: relative;
+    border-bottom: 0.125rem solid black;
+
+    --hover-space-height: 20%;
+}
+.form-field > label {
+    left: 1ch;
+    font-size: 1rem;
+    position: absolute;
+    text-transform: capitalize;
+    top: calc(100% - 2rem);
+    transform: translateY(-50%);
+    transition: 0.25s ease;
+    user-select: none;
+    cursor: text;
+}
+.form-field > input {
+    height: 80%;
+    width: 100%;
+    border: none;
+    padding: 0 1ch;
+    position: relative;
+    top: var(--hover-space-height);
+    background-color: transparent;
+}
+.form-field > input:focus {
+    outline: none;  
+}
+.form-field > input:valid + label,
+.form-field > input:focus + label {
+    transform: translate(-1ch, -2rem);
+    font-size: 0.75rem;
+}
+.form-field .icon-button {
+    top: var(--hover-space-height);
+    width: 10%;
+    height: 80%;
+    position: relative;
+}
+.form-field .icon-button:last-of-type {
+    right: 0;
+}

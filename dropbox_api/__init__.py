@@ -10,7 +10,7 @@ dbx = dropbox.Dropbox(os.getenv('DROPBOX_TOKEN'))
 # File Getter and Setter
 @app.route('/get-all-image-link', methods=['GET'])
 def get_all_image_link():
-    linkObj = dbx.sharing_get_shared_links().links
+    link_obj = dbx.sharing_get_shared_links().links
     
     # payload = {}
     # payload['data'] = list(
@@ -24,7 +24,7 @@ def get_all_image_link():
     #     )
     # )
 
-    linkObj = list(filter(lambda obj: any(ext in obj.path for ext in ['.jpg', 'jpeg', '.png']), linkObj))
+    link_obj = list(filter(lambda obj: any(ext in obj.path for ext in ['.jpg', 'jpeg', '.png']), link_obj))
     payload = {}
     payload['data'] = list(
         map(
@@ -33,7 +33,7 @@ def get_all_image_link():
                     *obj.path.split('/')[-1].split('.'),
                     obj.url.replace('www.dropbox', 'dl.dropboxusercontent'),
                 ), 
-                linkObj
+                link_obj
         )
     )
 

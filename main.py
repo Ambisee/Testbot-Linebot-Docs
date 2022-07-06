@@ -6,13 +6,16 @@ if '.env' in os.listdir():
 
 from werkzeug.serving import run_simple
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
+
+from api import app as api_app
+from frontend import app as frontend_app
 from webpage_api import app as webpage_api_app
-from webpage_frontend import app as webpage_frontend_app
 from dropbox_api import app as dropbox_api_app
 
-application = DispatcherMiddleware(webpage_frontend_app, {
+application = DispatcherMiddleware(frontend_app, {
     '/webpage-api': webpage_api_app,
-    '/dropbox-api': dropbox_api_app
+    '/dropbox-api': dropbox_api_app,
+    '/api': api_app
 })
 
 if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
@@ -22,5 +25,6 @@ if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
         application,
         use_debugger=True,
         use_evalex=True,
-        use_reloader=True
+        use_reloader=True,
+        threaded=True
     )

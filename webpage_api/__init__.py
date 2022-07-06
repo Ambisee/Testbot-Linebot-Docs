@@ -2,10 +2,12 @@ import os
 from .utils.config import *
 from .utils.db import *
 from .utils.models import *
-from flask import Flask, jsonify, request, session, redirect
+from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask import Flask, jsonify, make_response, request, session, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
 
 if os.getenv('FLASK_ENV') == 'development':
     app.config.from_object(DevelopmentConfig)
@@ -49,6 +51,7 @@ def handle_login():
         matched_user = matched_user[0]
         password_match = check_password_hash(matched_user.password, password)
         if password_match:
+            session['csrf_token'] = generate_csrf()
             session['user'] = username
             if matched_user.admin:
                 session['admin'] = True
@@ -75,7 +78,7 @@ def handle_logout():
     return redirect('/portal')
 
 
-@app.route('/get-current-user', methods=['GET'])
+@app.route('/current-user', methods=['GET'])
 def get_current_user():
     """
     GET :
@@ -83,11 +86,12 @@ def get_current_user():
     """
     current = session.get('user')
     if current is not None:
-        return {'user': current, 'message': 'Currently logged in user found'}, 200
+        return {
+        'user': current, 'message': 'Currently logged in user found'}, 200
     return {'message': 'Currently logged in user not found'}, 404
 
 # Command handlers
-@app.route('/get-all-commands', methods=['GET'])
+@app.route('/all-commands', methods=['GET'])
 def get_all_commands():
     """
     GET :
@@ -129,10 +133,15 @@ def modify_command():
     Search for the function with the information requested
     and delete the record
     """
+    if not session.get('admin', None):
+        return jsonify({'message': 'Unauthorized action detected, abort process'}), 403
+
     if request.method == 'PATCH':
         body = request.get_json()
         search_result = Function.query.filter_by(
-            syntax=body.get('original_syntax')).first()
+            syntax=body.get('original_syntax')
+        ).first()
+        
         if search_result is not None:
             search_result.name = body.get('name')
             search_result.description = body.get('description')
@@ -177,21 +186,31 @@ def modify_command():
 
 
 # Category handlers
-@app.route('/get-all-categories')
+@app.route('/all-categories', methods=['GET'])
 def get_all_category():
     """
     GET : 
     Returns a list of all category keywords
     """
-    all_categories = Category.query.all()
+    miscellaneous = Category.query.filter_by(category_name='Miscellaneous').first()
+    all_categories = Category.query.filter(Category.id != miscellaneous.id).all()
+
+    all_categories.append(miscellaneous)
+
     payload = {
-        'categories': list(map(lambda row: {'id': row.id,'name': row.category_name}, all_categories))
+        'categories': list(
+            map(
+                lambda entry: {'id': entry.id, 'category_name': entry.category_name},
+                all_categories
+            )
+        )
     }
+
     return jsonify(payload), 200
 
 
-@app.route('/find-category-commands/', defaults={'category_id': 0}, methods=['GET'])
-@app.route('/find-category-commands/<category_id>', methods=['GET'])
+@app.route('/category-commands/', defaults={'category_id': 0}, methods=['GET'])
+@app.route('/category-commands/<category_id>', methods=['GET'])
 def find_category_commands(category_id):
     """
     GET : 
@@ -271,3 +290,17 @@ def modify_category():
         return jsonify({'message': 'Category not found'}), 204
 
     return jsonify({'message': 'Request method not allowed...'}), 403
+
+@app.route('/csrf', methods=['GET'])
+def get_csrf():
+    response = make_response()
+    csrf_token = generate_csrf()
+
+    response.set_cookie(
+        "csrf", 
+        csrf_token, 
+        secure=True,
+        samesite='lax'
+    )
+    
+    return response
