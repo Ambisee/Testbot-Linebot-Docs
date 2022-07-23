@@ -2,7 +2,7 @@ import React, {createContext, useContext} from "react";
 
 import { useAuthValues } from "./hooks";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 function useAuth() {
     return useContext(AuthContext);

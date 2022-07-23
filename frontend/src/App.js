@@ -7,6 +7,7 @@ import AuthRequired from './_auth/AuthRequired';
 import PortalPage from './portal/PortalPage.js';
 import DashboardPage from './dashboard/DashboardPage.js';
 import { AuthContextProvider, useAuth } from './_auth/AuthContext.js';
+import Layout from './common/Layout.js';
 
 function AppRouter() {
   const auth = useAuth();
@@ -15,28 +16,28 @@ function AppRouter() {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          exact
-          path='/'
-          element={<HomePage links={footerData} appTitle={appTitle} />}
-        />
-        <Route
-          exact
-          path='/about'
-          element={<AboutPage links={footerData} appTitle={appTitle} />}
-        />
-        <Route
-          exact
-          path='/portal'
-          element={(() => {
-            if (auth.user === undefined) return <></>;
-            return auth.user !== null ? 
-              <Navigate to='/dashboard' /> :
-              <PortalPage links={footerData} appTitle={appTitle} />
-            })()
-          }
-        />
+        <Routes>
+          <Route element={<Layout links={footerData} />}>
+            <Route
+              path='/'
+              element={<HomePage appTitle={appTitle} />}
+            />
+            <Route
+              path='/about'
+              element={<AboutPage appTitle={appTitle} />}
+            />
+            <Route
+              exact
+              path='/portal'
+              element={(() => {
+                if (auth.user === undefined) return <></>;
+                return auth.user !== null ? 
+                  <Navigate to='/dashboard' /> :
+                  <PortalPage links={footerData} appTitle={appTitle} />
+                })()
+              }
+            />
+        </Route>
         <Route
           path='/dashboard'
           element={

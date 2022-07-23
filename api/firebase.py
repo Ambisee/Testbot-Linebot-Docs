@@ -65,7 +65,7 @@ def initialize_firebase():
         bucket.rename_blob(target_blob, new_path)
         return
 
-    def upload_file(file_binary: str, destination_path: str):
+    def upload_file(file_binary: str, destination_path: str, content_type: str):
         """
         upload_file:
         Create a new file and upload it into the Firebase 
@@ -75,12 +75,13 @@ def initialize_firebase():
         - file_binary: str = the binaries of a file to be uploaded
         - destination_path: str = the target filepath inside Firebase
             storage to store the file into
+        - content_type: str = the type of the file to be uploaded
         
         @return:
         A public URL to the newly uploaded file
         """
         new_blob = bucket.blob(destination_path)
-        new_blob.upload_from_file(file_binary)
+        new_blob.upload_from_string(file_binary, content_type)
         new_blob.make_public()
         
         return new_blob.public_url

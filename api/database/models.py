@@ -116,15 +116,18 @@ class File(db.Model):
     _url: db.String =
         the web URL where the file is located
     _tag: db.Enum = 
-        shows to which side the image will be used
-        Sides :
+        Tags to which the file is associated with
+        > Sides :
             - User
             - Bot
+        > Types :
+            - Invocables
+            - Description
     _association: db.Integer =
         a foreign key that maps to the associated Function
     """
     _id = db.Column(db.Integer, primary_key=True)
-    _filename = db.Column(db.String(100), nullable=False, unique=True)
+    _filename = db.Column(db.String(100), nullable=False)
     _filepath = db.Column(db.String(500), nullable=False, unique=True)
     _url = db.Column(db.String(500), nullable=False)
     _tag = db.Column(db.String(100))

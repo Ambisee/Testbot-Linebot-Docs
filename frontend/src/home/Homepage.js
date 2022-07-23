@@ -7,14 +7,12 @@ import { Helmet } from 'react-helmet';
 
 export default function HomePage(props) {
     return (
-        <div>
+        <>
             <Helmet>
                 <title>{props.appTitle ? props.appTitle : ""} | Home</title>
             </Helmet>
-            <NavBar />
             <HeroContainer />
             <CommandsContainer />
-            <Footer links={props.links}/>
-        </div>
+        </>
     );
 }

@@ -27,7 +27,9 @@ export default function LoginForm() {
         fetch('/api/v2/post/auth/login', requestOptions)
             .then(resp => resp.ok ? resp.json() : resp.status)
             .then(data => {
+                console.log(data)
                 auth.setLoginCredentials(data.username, data.is_admin, data.csrf_token);
+
                 navigator("/dashboard");
                 window.location.reload();
             })

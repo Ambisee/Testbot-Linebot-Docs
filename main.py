@@ -1,4 +1,5 @@
 import os
+import argparse
 from dotenv import load_dotenv
 
 if '.env' in os.listdir():
@@ -19,9 +20,27 @@ application = DispatcherMiddleware(frontend_app, {
 })
 
 if __name__ == '__main__' and os.getenv('FLASK_ENV') == 'development':
+    parser = argparse.ArgumentParser(
+        description='Run the development server for the \
+            Testbot-Comcenter documentation web application'
+    )
+    
+    parser.add_argument( 
+        '--host', 
+        help='Configure a hostname to run the application',
+        default='localhost'
+    )
+    parser.add_argument(
+        '--port', 
+        help='Configure a port number to run the application',
+        default=8000
+    )
+    
+    arguments = parser.parse_args()
+
     run_simple(
-        'localhost',
-        8000,
+        arguments.host,
+        int(arguments.port),
         application,
         use_debugger=True,
         use_evalex=True,

@@ -115,6 +115,9 @@ def create_new_command():
     }), 201
 
 
+# Testing file upload path
+# - posting single file to firebase - Success
+# - posting multiple file to firebase - Success
 from ...csrf import csrf
 
 @db_post_views.route(
@@ -142,17 +145,24 @@ def create_new_file():
         file_binary = file.read()
         filetype = file.mimetype.split('/')[-1]
         filename = secure_filename(file.filename)
+        filepath = 'Invocable Contents/' + filename
         
+        # Check if the file already exists in the `Invocables` directory
+        if File.query.filter(filepath == File._filepath):
+            print(f'Failed to upload {filename} due to some issues')
+            continue
+
         # Upload the file to Firebase storage and return the URL
         file_url = upload_file(
             file_binary,
-            f'Invocable Contents/{filename}'
+            filepath,
+            file.mimetype
         )
 
         # Create a new File entry in the database
         new_file = File(
             _filename=filename,
-            _filepath=f'Invocable Contents/{filename}',
+            _filepath=filepath,
             _tag='invocable',
             _url=file_url,
         )
@@ -170,43 +180,51 @@ def create_new_file():
             file_binary = file.read()
             filetype = file.mimetype.split('/')[-1]
             filename = secure_filename(f'{file.filename}.{filetype}')
+            filepath = f'Chat Resources/{function_name[1:]}/User/{filename}'
             function_id = form.get('function_id')
             
+            if File.query.filter(filepath == File._filepath):
+                print(f'Failed to upload {filename} due to some issues')
+                continue
+
             # Upload the file to Firebase storage and return the URL
             file_url = upload_file(
                 file_binary, 
-                f'Chat Resources/{function_name[1:]}/User/{filename}'
+                filepath,
+                file.mimetype
             )
 
             # Create a new File entry in the database
             new_file = File(
                 _filename=filename,
-                _filepath=f'Chat Resources/{function_name[1:]}/ \
-                    User/{filename}',
+                _filepath=filepath,
                 _url=file_url,
                 _tag='user',
                 _association=function_id
             )
-
-            db.session.add(new_file)
         
         for file in files.getlist('bot'):
             file_binary = file.read()
             filetype = file.mimetype.split('/')[-1]
             filename = secure_filename(f'{file.filename}.{filetype}')
+            filepath = f'Chat Resources/{function_name[1:]}/Bot/{filename}'
             function_id = form.get('function_id')
             
+            if File.query.filter(filepath == File._filepath):
+                print(f'Failed to upload {filename} due to some issues')
+                continue
+
             # Upload the file to Firebase storage and return the URL
             file_url = upload_file(
                 file_binary, 
-                f'Chat Resources/{function_name[1:]}/Bot/{filename}'
+                filepath,
+                file.mimetype
             )
 
             # Create a new File entry in the database
             new_file = File(
                 _filename=filename,
-                _filepath=f'Chat Resources/{function_name[1:]}/ \
-                    Bot/{filename}',
+                _filepath=filepath,
                 _url=file_url,
                 _tag='bot',
                 _association=function_id

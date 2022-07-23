@@ -22,7 +22,11 @@ def icon():
 @app.route('/<path:path>')
 def app_routing(path):
     response = make_response(
-        render_template('index.html', config=current_config, app_name=os.getenv('APP_NAME'))
+        render_template(
+            'index.html', 
+            config=current_config, 
+            app_name=os.getenv('APP_NAME')
+        )
     )
     
     return response

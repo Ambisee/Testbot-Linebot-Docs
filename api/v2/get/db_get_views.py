@@ -75,6 +75,7 @@ def get_all_commands():
                         map(
                             lambda file: {
                                 'filename': file._filename,
+                                'tag': file._tag,
                                 'url': file._url
                             },
                             row._files
